@@ -17,8 +17,9 @@ export default {
     async createCompetition({ state, commit, rootState }, competitionData) {
         let { data } = await api.createCompetition(competitionData);
 
-        if(!data.ok) console.log('error creating competition');
+        if(!data.ok) console.log(data);
         else {
+            console.log(data);
             commit(mutationTypes.CREATE_COMPETITION, data.competition);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',

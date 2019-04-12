@@ -1,5 +1,7 @@
+const slugGenerator = require('limax')
 const Competition = require('../models/competition')
 const User = require('../models/user')
+const Joi = require('joi')
 
 /**
  * Get all user competitions
@@ -42,10 +44,28 @@ function create(req, res) {
     // Retreive user from JWT
     var token = req.headers.authorization.split(' ')[1];
     let currentUser = User.getCurrentUser(token);
+    
+    // Validation
+    const schema = Joi.object().keys({
+        competitionName: Joi.string().required(),
+    });
+
+    Joi.validate(req.body, schema, (err, result) => {
+        if(err) {
+            res.json({
+                'ok': false,
+                'error': err.details
+            });
+        }
+    });
+
     // Creating a competition
     let competition = new Competition({
-        competitionName: req.body.competitionName
+        competitionName: req.body.competitionName,
+        competitionLogo: req.file !== undefined ? req.file.path : null,
+        slug: slugGenerator(req.body.competitionName)
     });
+    
     // Save competition in the DB
     competition.save((err) => {
         if(err) return console.log(err);

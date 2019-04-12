@@ -6,16 +6,15 @@
 import axios from '@/axios'
 
 export default {
-    components: {
-        
+    computed: {
+        API_URL() {
+            return process.env.VUE_APP_API_URL;
+        }
     },
     data() {
         return {
-            showFAB: false
+            
         }
-    },
-    created() {
-        this.showFAB = true;
     }
 }
 </script>

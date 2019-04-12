@@ -14,7 +14,7 @@ const routes = [
         children: [
             { path: 'competition/create', name: 'CreateCompetition', component: CreateCompetition, meta: { requiresAuth: true } },
             { path: 'competitions', name: 'Competitions', component: Competitions, meta: { requiresAuth: true } },
-            { path: 'competitions/:id', name: 'Competition', component: Competition, meta: { requiresAuth: true } },
+            { path: 'competitions/:slug', name: 'Competition', component: Competition, meta: { requiresAuth: true } },
             { path: 'chess', name: 'Chess', component: Chess, meta: { requiresAuth: true } },
         ] 
     },

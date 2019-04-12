@@ -2,7 +2,7 @@
     <v-card>
         <v-card-title primary-title>
             <div class="headline">
-                <v-icon medium color="grey">dashboard</v-icon>
+                <v-icon medium color="grey">assessment</v-icon>
                 {{ item.competitionName }}
             </div>
         </v-card-title>
@@ -14,7 +14,7 @@
             <v-btn
                 flat
                 small 
-                :to="{ name: 'Competition', params: { id: item._id } }">
+                :to="{ name: 'Competition', params: { slug: item.slug } }">
                 Open
             </v-btn>
             <v-btn fab small flat color="red" @click="deleteCompetition(item._id)">
