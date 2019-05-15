@@ -9,11 +9,13 @@ import actions from './actions'
 // Modules
 import authModule from './modules/auth'
 import competitionsModule from './modules/competitions'
+import playersModule from './modules/players'
 
 export default new Vuex.Store({
     modules: {
         auth: authModule,
-        competitions: competitionsModule
+        competitions: competitionsModule,
+        players: playersModule
     },
     state: {
         snackbar: {
@@ -23,7 +25,8 @@ export default new Vuex.Store({
         },
         lastVisitedPage: null,
         contentLoading: false,
-        mobileNav: false
+        mobileNav: false,
+        countries: []
     },
     getters,
     mutations,

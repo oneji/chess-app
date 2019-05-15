@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
+import VueMoment from 'vue-moment'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 
 Vue.use(VeeValidate)
+Vue.use(VueMoment)
 
 Vue.config.productionTip = false
 

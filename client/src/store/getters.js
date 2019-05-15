@@ -13,6 +13,10 @@ const getters = {
 
     mobileNav: state => {
         return state.mobileNav;
+    },
+
+    getCountries: state => {
+        return state.countries;
     }
 }
 

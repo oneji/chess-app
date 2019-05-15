@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 const competitionSchema = new Schema({
     competitionName:    { type: String, required: true, trim: true },
     competitionLogo:    { type: String, default: null, trim: true },
-    tropheyPhoto:       { type: String, default: null, trim: true },
+    started:            { type: Boolean, default: false },
+    players:            [{ type: Schema.Types.ObjectId, ref: 'Player' }],
+    deleted:            { type: Boolean, default: false },
     createdAt:          { type: Date, default: Date.now() },
     slug:               { type: String, default: '' }
 });

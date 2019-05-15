@@ -7,5 +7,9 @@ export default {
 
     createCompetition(data) {
         return axios.post('/competitions', data);
+    },
+
+    getCompetitionBySlug(slug) {
+        return axios.get(`/competitions/getBySlug/${slug}`);
     }
 }

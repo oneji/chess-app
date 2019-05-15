@@ -1,10 +1,9 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12 sm12 md12 lg12>
+        <v-flex xs12 sm4 md4 lg4>
             <v-card>
-                <v-card-title primary-title>
-                    <chessboard 
-                        :free="true" />
+                <v-card-title>
+                    <ChessBoard />
                 </v-card-title>
             </v-card>
         </v-flex>
@@ -12,15 +11,15 @@
 </template>
 
 <script>
-import { chessboard } from 'vue-chessboard'
+import ChessBoard from '@/components/Chess/ChessBoard'
 
 export default {
     components: {
-        chessboard
-    },
+        ChessBoard
+    }
 }
 </script>
 
 <style>
-
+    
 </style>

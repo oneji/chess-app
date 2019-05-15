@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
+const path = require('path')
 
 // Determine the environment
 const env = process.env.NODE_ENV = process.env.NODE_ENV || 'production';
@@ -10,6 +11,7 @@ require('./configs/passport')
 
 // Initialize an app
 const app = express();
+app.use('/uploads', express.static('uploads'));
 
 // Connect to the db
 require('./configs/mongoose')(config);

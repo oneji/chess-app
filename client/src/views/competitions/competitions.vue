@@ -10,18 +10,20 @@
         </v-flex>        
     </v-scale-transition>
     <!-- Show if there's no competitions created by the user -->
-    <NoCompetitions v-else />
+    <EmptySet 
+        v-else 
+        text="You haven't created any competitions yet." />
 </template>
 
 <script>
-import axios from '@/axios'
+import { mapActions } from 'vuex'
 import Competition from '@/components/Competitions/Competition'
-import NoCompetitions from '@/components/Competitions/NoCompetitions'
+import EmptySet from '@/components/EmptySet'
 
 export default {
     components: {
         Competition,
-        NoCompetitions
+        EmptySet
     },
     computed: {
         competitions() {
@@ -33,12 +35,18 @@ export default {
 
         }
     },
+    methods: {
+        ...mapActions('competitions', [
+            'getCompetitions',
+            'setCreateCompetition'
+        ])
+    },
     created() {
-        this.$store.dispatch('competitions/getCompetitions');
-        this.$store.dispatch('competitions/setCreateCompetition', true);
+        this.getCompetitions();
+        this.setCreateCompetition(true);
     },
     destroyed() {
-        this.$store.dispatch('competitions/setCreateCompetition', false);
+        this.setCreateCompetition(false);
     },
 }
 </script>

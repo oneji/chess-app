@@ -13,16 +13,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-// Models
-const Competition = require('../models/competition')
-
 // Contollers
 const CompetitionController = require('../controllers/competitionController')
 
 // Routes
 router.get('/', CompetitionController.get);
 router.get('/getById/:id', CompetitionController.getById);
+router.get('/getBySlug/:slug', CompetitionController.getBySlug);
 router.post('/', upload.single('competitionLogo'), CompetitionController.create);
 
 // Export

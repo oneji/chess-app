@@ -15,5 +15,9 @@ export default {
 
     [mutationTypes.CREATE_COMPETITION] (state, newCompetition) {
         state.competitions = [...state.competitions, newCompetition];
+    },
+
+    [mutationTypes.SET_COMPETITION] (state, competition) {
+        state.currentCompetition = competition;
     }
 }

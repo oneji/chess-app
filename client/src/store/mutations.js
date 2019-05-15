@@ -15,6 +15,10 @@ const mutations = {
 
     [mutationTypes.SET_MOBILE_NAV] (state, mobileNavState) {
         state.mobileNav = mobileNavState;
+    },
+
+    [mutationTypes.SET_COUNTRIES] (state, countries) {
+        state.countries = countries;
     }
 }
 

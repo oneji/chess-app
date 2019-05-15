@@ -5,6 +5,7 @@
         </v-btn>
         <v-btn :to="{ name: 'Competitions' }">Competitions</v-btn>
         <v-btn :to="{ name: 'Chess' }">Chess</v-btn>
+        <v-btn :to="{ name: 'Players' }">Players</v-btn>
         <v-toolbar-title></v-toolbar-title>
         <v-spacer></v-spacer>
         <!-- User menu -->

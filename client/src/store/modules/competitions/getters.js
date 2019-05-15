@@ -5,5 +5,9 @@ export default {
 
     createCompetition(state) {
         return state.createCompetition;
+    },
+
+    getCompetition(state) {
+        return state.currentCompetition;
     }
 }

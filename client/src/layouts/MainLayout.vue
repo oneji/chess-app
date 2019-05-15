@@ -1,37 +1,45 @@
 <template>
-    <div>
+    <div>        
         <!-- Toolbar -->
-        <Toolbar />
+        <Toolbar />        
         <!-- Main content -->
         <v-content>
-            <v-container fluid grid-list-md v-if="!$store.getters.getContentLoading">
+            <!-- Breadcrumbs -->
+            <Breadcrumbs />
+            <!-- Content loading -->
+            <Loading v-if="$store.getters.getContentLoading" />
+            <v-container fluid grid-list-md v-show="!$store.getters.getContentLoading">
                 <transition name="slide-x-transition" mode="out-in">
                     <router-view  />
                 </transition>
                 <!-- Create project modal and fab -->
                 <CreateCompetition 
                     v-if="$store.getters['competitions/createCompetition']" />
+                <CreatePlayer
+                    v-if="$store.getters['players/createPlayer']" />
             </v-container>
         </v-content>
         <!-- Footer -->
         <v-footer app fixed>
             <span>&copy; 2018</span>
         </v-footer>
-        <!-- Content loading -->
-        <Loading />
     </div>
 </template>
 
 <script>
 import Toolbar from '@/components/Toolbar'
 import CreateCompetition from '@/components/Competitions/CreateCompetition'
+import CreatePlayer from '@/components/Players/CreatePlayer'
 import Loading from '@/components/Loading'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export default {
     components: {
         Toolbar,
         CreateCompetition,
-        Loading
+        CreatePlayer,
+        Loading,
+        Breadcrumbs
     },
     computed: {
 
@@ -45,7 +53,5 @@ export default {
 </script>
 
 <style>
-    .v-content {
-        height: 100vh;
-    }
+
 </style>

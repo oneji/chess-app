@@ -2,7 +2,7 @@
     <div>
         <v-fab-transition>
             <v-btn
-                absolute dark fab bottom right color="blue"
+                dark fab fixed bottom right color="blue"
                 @click="showForm = true">
                 <v-icon>add</v-icon>
             </v-btn>
@@ -26,7 +26,7 @@
                                     v-validate="'required'"
                                     data-vv-name="competitionName"
                                     :error-messages="errors.collect('competitionName')"
-                                ></v-text-field>                                        
+                                ></v-text-field>
                             </v-flex>
                             
                             <v-flex xs12 sm12 md12 lg12>
@@ -78,7 +78,9 @@ export default {
                         competitionData.append('competitionName', this.competitionName);
                         competitionData.append('competitionLogo', this.competitionLogo.file);
 
-                        console.log(competitionData)
+                        // Clear inputs
+                        this.competitionName = '';
+                        this.deleteCoverImage();
 
                         this.$store.dispatch('competitions/createCompetition', competitionData);
                         this.showForm = false;

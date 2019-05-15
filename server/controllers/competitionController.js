@@ -11,7 +11,9 @@ const Joi = require('joi')
  */
 function get(req, res) {
     // Find all user competitions
-    Competition.find({}, (err, competitions) => {
+    Competition.find({})
+    .populate('players')
+    .exec((err, competitions) => {
         res.json({
             'ok': true,
             'competitions': competitions
@@ -35,19 +37,36 @@ function getById(req, res) {
 }
 
 /**
+ * Get a specific competition by SLUG
+ * 
+ * @param {*} req
+ * @param {*} res
+ */
+function getBySlug(req, res) {
+    Competition.find({ 'slug': req.params.slug }, (err, competition) => {
+        res.json({
+            'ok': true,
+            'competition': competition[0]
+        });
+    });
+}
+
+/**
  * Create a new competition
  * 
  * @param {*} req 
  * @param {*} res 
  */
-function create(req, res) {
-    // Retreive user from JWT
-    var token = req.headers.authorization.split(' ')[1];
-    let currentUser = User.getCurrentUser(token);
-    
+function create(req, res) {    
     // Validation
     const schema = Joi.object().keys({
         competitionName: Joi.string().required(),
+        competitionLogo: Joi.optional(),
+        players: Joi.optional(),
+        started: Joi.boolean().optional(),
+        deleted: Joi.boolean().optional(),
+        createdAt: Joi.optional(),
+        slug: Joi.string()
     });
 
     Joi.validate(req.body, schema, (err, result) => {
@@ -63,6 +82,7 @@ function create(req, res) {
     let competition = new Competition({
         competitionName: req.body.competitionName,
         competitionLogo: req.file !== undefined ? req.file.path : null,
+        players: req.body.players,
         slug: slugGenerator(req.body.competitionName)
     });
     
@@ -73,7 +93,8 @@ function create(req, res) {
         res.json({
             'ok': true,
             'competition': competition,
-            'message': 'Competition has successfully been created.'
+            'message': 'Competition has successfully been created.',
+            'data': req.body
         });
     });
 }
@@ -82,5 +103,6 @@ function create(req, res) {
 module.exports = {
     get,
     getById,
+    getBySlug,
     create
 }

@@ -4,13 +4,13 @@ import * as rootMutationTypes from '../../mutation-types'
 
 export default {
     async getCompetitions({ state, commit, rootState }) {
-        // commit('setContentLoading', true, { root: true });
+        commit('setContentLoading', true, { root: true });        
         let { data } = await api.getCompetitions();
 
         if(!data.ok) console.log('competitions error');
-        else {
+        else {            
             commit(mutationTypes.SET_COMPETITIONS, data.competitions);
-            // commit('setContentLoading', false, { root: true });
+            commit('setContentLoading', false, { root: true });
         }
     },
 
@@ -19,13 +19,23 @@ export default {
 
         if(!data.ok) console.log(data);
         else {
-            console.log(data);
             commit(mutationTypes.CREATE_COMPETITION, data.competition);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,
                 text: data.message
             }, { root: true });
+        }
+    },
+
+    async getCompetitionBySlug({ state, commit }, competitionSlug) {
+        commit('setContentLoading', true, { root: true });
+        let { data } = await api.getCompetitionBySlug(competitionSlug);
+
+        if(!data.ok) console.log('...')
+        else {
+            commit(mutationTypes.SET_COMPETITION, data.competition);
+            commit('setContentLoading', false, { root: true });
         }
     },
 

@@ -6,7 +6,8 @@ const competitionsModule = {
     namespaced: true,
     state: {
         competitions: [],
-        createCompetition: false
+        createCompetition: false,
+        currentCompetition: {}
     },
     getters,
     mutations,

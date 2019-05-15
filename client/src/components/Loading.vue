@@ -1,31 +1,30 @@
 <template>
-    <v-dialog
-        v-model="$store.getters.getContentLoading"
-        hide-overlay
-        persistent
-        width="300"
-    >
-        <v-card
-            color="dark"
-            dark
-        >
-            <v-card-text>
-                Загрузка данных
-                <v-progress-linear
+    <v-layout row wrap>
+        <v-flex xs12 sm12 md12 lg12>
+            <div class="loading-block">
+                <v-progress-circular
+                    :size="60"
+                    color="primary"
                     indeterminate
-                    color="white"
-                    class="mb-0"
-                ></v-progress-linear>
-            </v-card-text>
-        </v-card>
-    </v-dialog>    
+                ></v-progress-circular>
+            </div>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>
 export default {
-
+    data() {
+        return {
+            loading: true
+        }
+    }
 }
 </script>
 
-<style>
+<style scoped>
+    .loading-block {
+        display: flex;
+        justify-content: center;
+    }
 </style>
