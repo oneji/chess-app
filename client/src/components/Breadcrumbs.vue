@@ -21,7 +21,11 @@
 export default {
     filters: {
         makePathUpperCase(path) {
-            return path[0].toUpperCase() + path.slice(1, path.length);
+            if(path !== undefined && path !== '' && path !== null) {
+                return path[0].toUpperCase() + path.slice(1, path.length);
+            } else {
+                return 'Home';
+            }
         }
     },
     computed: {

@@ -19,5 +19,9 @@ export default {
 
     [mutationTypes.SET_COMPETITION] (state, competition) {
         state.currentCompetition = competition;
+    },
+
+    [mutationTypes.SET_COMPETITION_PLAYERS] (state, players) {
+        state.currentCompetition.players.push(...players);
     }
 }

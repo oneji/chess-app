@@ -35,7 +35,7 @@
                             <v-flex xs12 sm12 md12 lg12>
                                 <v-autocomplete
                                     v-model="playersInfo.playerCountry"
-                                    :items="countries"
+                                    :items="countriesNames"
                                     label="Player's country"
                                     persistent-hint
                                     prepend-icon="language"
@@ -45,7 +45,7 @@
                             
                             
                             <v-flex xs12 sm12 md12 lg12>
-                                <!-- <v-text-field 
+                                <v-text-field 
                                     label="Выберите главное фото" 
                                     @click="pickFile" 
                                     v-model="playerPhoto.name" 
@@ -53,7 +53,7 @@
                                     append-icon="delete" 
                                     @click:append="deleteCoverImage"
                                 ></v-text-field>
-                                <input type="file" style="display: none" @change="onFilePicked" ref="image" accept="image/*"> -->
+                                <input type="file" style="display: none" @change="onFilePicked" ref="image" accept="image/*">
                             </v-flex>
                         </v-layout>
                     </v-card-text>
@@ -86,6 +86,7 @@ export default {
             ],
             playersInfo: {},
             countries: countriesJson,
+            countriesNames: [],
             playerPhoto: {
                 name: '',
                 file: '',
@@ -98,11 +99,20 @@ export default {
             'players/createPlayer'
         ]),
         createPlayer() {
+            this.playersInfo.playerPhoto = this.playerPhoto.file;
             this.$validator.validateAll('createPlayerForm')
                 .then(success => {
-                    if(success) {                        
-                        this['players/createPlayer'](this.playersInfo);
+                    if(success) {
+                        let playerData = new FormData();
+                        playerData.append('playerName', this.playersInfo['playerName']);
+                        playerData.append('playerEmail', this.playersInfo['playerEmail']);
+                        playerData.append('playerPhone', this.playersInfo['playerPhone']);
+                        playerData.append('playerCountry', this.playersInfo['playerCountry']);
+                        playerData.append('playerPhoto', this.playerPhoto.file);
+
+                        this['players/createPlayer'](playerData);
                         this.playersInfo = {};
+                        this.deleteCoverImage();
                         
                         this.showForm = false;
                     } else {
@@ -143,6 +153,11 @@ export default {
             this.playerPhoto.name = '';
             this.playerPhoto.file = '';
         },
+    },
+    created() {
+        this.countriesNames = this.countries.map(country => {
+            return country.name.common;
+        })
     }
 }
 </script>

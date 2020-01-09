@@ -21,6 +21,7 @@ router.get('/', CompetitionController.get);
 router.get('/getById/:id', CompetitionController.getById);
 router.get('/getBySlug/:slug', CompetitionController.getBySlug);
 router.post('/', upload.single('competitionLogo'), CompetitionController.create);
+router.post('/:id/addPlayers', CompetitionController.addPlayers);
 
 // Export
 module.exports = router

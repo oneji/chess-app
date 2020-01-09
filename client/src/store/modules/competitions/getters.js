@@ -9,5 +9,5 @@ export default {
 
     getCompetition(state) {
         return state.currentCompetition;
-    }
+    },
 }

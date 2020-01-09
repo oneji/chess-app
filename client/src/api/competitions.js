@@ -11,5 +11,11 @@ export default {
 
     getCompetitionBySlug(slug) {
         return axios.get(`/competitions/getBySlug/${slug}`);
+    },
+
+    addPlayers(competitionID, players) {
+        return axios.post(`competitions/${competitionID}/addPlayers`, {
+            players: players
+        });
     }
 }

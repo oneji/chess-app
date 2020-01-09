@@ -1,16 +1,32 @@
 import api from '@/api/competitions'
 import * as mutationTypes from './mutation-types'
 import * as rootMutationTypes from '../../mutation-types'
+import store from '@/store';
 
 export default {
-    async getCompetitions({ state, commit, rootState }) {
-        commit('setContentLoading', true, { root: true });        
+    async getCompetitions({ state, commit, rootState }) {       
         let { data } = await api.getCompetitions();
 
         if(!data.ok) console.log('competitions error');
         else {            
             commit(mutationTypes.SET_COMPETITIONS, data.competitions);
             commit('setContentLoading', false, { root: true });
+        }
+    },
+
+    async addPlayers({ state, commit, rootState }, players) {
+        let competition = store.getters['competitions/getCompetition'];
+        let { data } = await api.addPlayers(competition._id, players);
+
+        if(!data.ok) console.log('competitions error');
+        else {
+            console.log(data)
+            commit(mutationTypes.SET_COMPETITION_PLAYERS, data.players);
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
         }
     },
 
@@ -29,7 +45,6 @@ export default {
     },
 
     async getCompetitionBySlug({ state, commit }, competitionSlug) {
-        commit('setContentLoading', true, { root: true });
         let { data } = await api.getCompetitionBySlug(competitionSlug);
 
         if(!data.ok) console.log('...')

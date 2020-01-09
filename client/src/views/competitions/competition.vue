@@ -1,7 +1,11 @@
 <template>
-    <v-layout row wrap>
-        <v-flex xs12 sm12 md12 lg12>
-            <PlayersList :items="[]" />
+    <v-layout row wrap v-if="!$store.getters.getContentLoading">
+        <v-flex xs12 sm4 md4 lg4>
+            <PlayersList :items="competition.players || []" />
+        </v-flex>
+
+        <v-flex xs12 sm4 md4 lg4>
+
         </v-flex>
     </v-layout>
 </template>

@@ -4,7 +4,6 @@ import * as rootMutationTypes from '../../mutation-types'
 
 export default {
     async getPlayers({ state, commit, rootState }) {
-        commit('setContentLoading', true, { root: true });    
         let { data } = await api.getPlayers();
 
         if(!data.ok) console.log('players error');

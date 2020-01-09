@@ -1,5 +1,6 @@
 const slugGenerator = require('limax')
 const Competition = require('../models/competition')
+const Player = require('../models/player')
 const User = require('../models/user')
 const Joi = require('joi')
 
@@ -43,12 +44,14 @@ function getById(req, res) {
  * @param {*} res
  */
 function getBySlug(req, res) {
-    Competition.find({ 'slug': req.params.slug }, (err, competition) => {
-        res.json({
-            'ok': true,
-            'competition': competition[0]
-        });
-    });
+    Competition.findOne({ 'slug': req.params.slug })
+        .populate('players')
+        .exec((err, competition) => {
+            res.json({
+                'ok': true,
+                'competition': competition
+            });
+        })
 }
 
 /**
@@ -94,9 +97,54 @@ function create(req, res) {
             'ok': true,
             'competition': competition,
             'message': 'Competition has successfully been created.',
-            'data': req.body
         });
     });
+}
+
+/**
+ * Add participants to the competition
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+function addPlayers(req, res) {
+    Competition.findOne({ _id: req.params.id })
+        .then((competition) => {
+            Player.find({ _id: { $in: req.body.players } })
+                .then((players) => {
+                    let newPlayers = [];
+                    // Check for players already participate or not
+                    for(let i = 0; i < players.length; i++) {
+                        let newPlayer = players[i];
+                        let newOne = true;
+                        // Check if a player already participates in the competition
+                        for(let j = 0; j < competition.players.length; j++) {
+                            let oldPlayer = competition.players[j];
+
+                            if(newPlayer._id.toString() === oldPlayer.toString()) {
+                                newOne = false;
+                            }
+                        }
+                        // If the player is a new one then add him to the competition players' array
+                        if(newOne === true) {
+                            competition.players.push(newPlayer);
+                            newPlayers.push(newPlayer);
+                        }
+                    }
+
+                    competition.save((err) => {
+                        if(err) return console.log(err);
+        
+                        res.json({
+                            ok: true,
+                            message: 'Players are successfully added to the competition.',
+                            _id: req.params.id,
+                            competition,
+                            players: newPlayers
+                        });
+                    });        
+                });
+        });    
 }
 
 // Export
@@ -104,5 +152,6 @@ module.exports = {
     get,
     getById,
     getBySlug,
-    create
+    create,
+    addPlayers
 }

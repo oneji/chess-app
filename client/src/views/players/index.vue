@@ -1,18 +1,20 @@
 <template>
-    <v-scale-transition 
-        group 
-        tag="div" 
-        class="layout row wrap"
-        v-if="players.length !== 0"
-    >
-        <v-flex xs12 sm4 md3 lg3 v-for="player in players" :key="player._id">
-            <Player :item="player" />
-        </v-flex>
-    </v-scale-transition>
-    <!-- Show if there's no players created by the user -->
-    <EmptySet 
-        v-else 
-        text="You haven't created any players yet." />
+    <div v-if="!$store.getters.getContentLoading">
+        <v-scale-transition 
+            group 
+            tag="div" 
+            class="layout row wrap"
+            v-if="players.length !== 0"
+        >
+            <v-flex xs12 sm4 md2 lg2 v-for="player in players" :key="player._id">
+                <Player :item="player" />
+            </v-flex>
+        </v-scale-transition>
+        <!-- Show if there's no players created by the user -->
+        <EmptySet 
+            v-else
+            text="You haven't created any players yet." />
+    </div>    
 </template>
 
 <script>

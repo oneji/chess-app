@@ -8,9 +8,9 @@
             <Breadcrumbs />
             <!-- Content loading -->
             <Loading v-if="$store.getters.getContentLoading" />
-            <v-container fluid grid-list-md v-show="!$store.getters.getContentLoading">
+            <v-container fluid grid-list-md>
                 <transition name="slide-x-transition" mode="out-in">
-                    <router-view  />
+                    <router-view />
                 </transition>
                 <!-- Create project modal and fab -->
                 <CreateCompetition 
@@ -48,7 +48,12 @@ export default {
         return {
             
         }
-    }
+    },
+    watch:{
+        $route (to, from){
+            this.$store.dispatch('contentLoading', true);
+        }
+    } 
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
      <v-card>
         <v-img
-          src="./images/chess-board.jpg"
+          :src="baseURL + '/' + item.playerPhoto"
           height="200px"
           class="player-photo"
         >
@@ -21,7 +21,7 @@
                 <v-spacer></v-spacer>
 
                 <v-card-title class="white--text">
-                    <div class="display-1 player-name">{{ item.playerName }}</div>
+                    <div class="title player-name">{{ item.playerName }}</div>
                 </v-card-title>
             </v-layout>
         </v-img>
@@ -63,8 +63,8 @@
                 </v-list-tile-action>
 
                 <v-list-tile-content>
-                    <v-list-tile-title>1400 Main Street</v-list-tile-title>
-                    <v-list-tile-sub-title>Orlando, FL 79938</v-list-tile-sub-title>
+                    <v-list-tile-title>{{ item.playerCountry }}</v-list-tile-title>
+                    <v-list-tile-sub-title>Country</v-list-tile-sub-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -77,6 +77,11 @@ export default {
         item: {
             type: Object,
             required: true
+        }
+    },
+    computed: {
+        baseURL() {
+            return process.env.VUE_APP_API_URL;
         }
     }
 }

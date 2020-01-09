@@ -20,8 +20,8 @@ function get(req, res) {
 /**
  * Create a new player
  * 
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 function create(req, res) {
     // Validation

@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-let defaultPlayersColorsObject = {
-    time: null,
-    player: { type: Schema.Types.ObjectId, ref: 'Player' }
-};
-
 const gameSchema = new Schema({
     gameType:       { type: String, required: true, trim: true },
     whites:         { type: Schema.Types.ObjectId, ref: 'Player' },

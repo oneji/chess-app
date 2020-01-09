@@ -8,7 +8,7 @@
                 <v-list-tile avatar>
                     <v-list-tile-avatar>
                         <v-btn depressed fab small color="secondary">
-                            <v-icon>person</v-icon>
+                            <img src="images/default_user.png" alt="User photo" />
                         </v-btn>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
