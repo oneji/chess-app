@@ -9,6 +9,10 @@ export default {
         return axios.post('/competitions', data);
     },
 
+    deleteCompetition(competitionID) {
+        return axios.delete(`competitions/remove/${competitionID}`);
+    },
+
     getCompetitionBySlug(slug) {
         return axios.get(`/competitions/getBySlug/${slug}`);
     },

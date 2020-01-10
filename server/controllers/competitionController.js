@@ -12,7 +12,7 @@ const Joi = require('joi')
  */
 function get(req, res) {
     // Find all user competitions
-    Competition.find({})
+    Competition.find({ deleted: false })
     .populate('players')
     .exec((err, competitions) => {
         res.json({
@@ -102,6 +102,27 @@ function create(req, res) {
 }
 
 /**
+ * Remove the competition
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+function remove(req, res) {
+    Competition.findOne({ _id: req.params.id })
+        .then(competition => {
+            competition.deleted = true;
+            competition.save((err) => {
+                if(err) return console.log(err);
+
+                res.json({
+                    ok: true,
+                    message: 'Competition has been successfully removed.'
+                });
+            })
+        });
+}
+
+/**
  * Add participants to the competition
  * 
  * @param {*} req 
@@ -181,6 +202,7 @@ module.exports = {
     getById,
     getBySlug,
     create,
+    remove,
     addPlayers,
     removePlayers
 }

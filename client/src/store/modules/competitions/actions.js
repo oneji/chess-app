@@ -68,8 +68,18 @@ export default {
         }
     },
 
-    deleteCompetition({ state, commit, rootState }, competitionId) {
-        commit(mutationTypes.DELETE_COMPETITION, competitionId);
+    async deleteCompetition({ state, commit, rootState }, competitionId) {
+        let { data } = await api.deleteCompetition(competitionId);
+
+        if(!data.ok) console.log('error')
+        else {
+            commit(mutationTypes.DELETE_COMPETITION, competitionId);
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
     },
 
     setCreateCompetition({ state, commit, rootState }, createCompetitionState) {
