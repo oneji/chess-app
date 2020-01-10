@@ -23,5 +23,11 @@ export default {
 
     [mutationTypes.SET_COMPETITION_PLAYERS] (state, players) {
         state.currentCompetition.players.push(...players);
+    },
+
+    [mutationTypes.DELETE_COMPETITION_PLAYER] (state, playerId) {
+        state.currentCompetition.players = state.currentCompetition.players.filter(players => {
+            return players._id.toString() !== playerId.toString()
+        });
     }
 }

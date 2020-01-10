@@ -17,5 +17,9 @@ export default {
         return axios.post(`competitions/${competitionID}/addPlayers`, {
             players: players
         });
+    },
+
+    deletePlayers(competitionID, playerID) {
+        return axios.delete(`competitions/${competitionID}/removePlayers/${playerID}`);
     }
 }

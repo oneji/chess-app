@@ -20,8 +20,22 @@ export default {
 
         if(!data.ok) console.log('competitions error');
         else {
-            console.log(data)
             commit(mutationTypes.SET_COMPETITION_PLAYERS, data.players);
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
+    },
+
+    async deletePlayers({ state, commit }, playerId) {
+        let competition = store.getters['competitions/getCompetition'];
+        let { data } = await api.deletePlayers(competition._id, playerId);
+
+        if(!data.ok) console.log('competitions error');
+        else {
+            commit(mutationTypes.DELETE_COMPETITION_PLAYER, playerId);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,

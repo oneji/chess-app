@@ -24,7 +24,7 @@
                         </v-list-tile-content>
 
                         <v-list-tile-action>
-                            <v-btn small flat fab>
+                            <v-btn small flat fab @click="deletePlayers(item._id)">
                                 <v-icon color="red">delete</v-icon>
                             </v-btn>
                         </v-list-tile-action>
@@ -41,6 +41,7 @@
 <script>
 import PlayersSelector from './PlayersSelector'
 import EmptySet from '../EmptySet'
+import { mapActions } from 'vuex'
 
 export default {
     props: {
@@ -57,6 +58,14 @@ export default {
     components: {
         PlayersSelector,
         EmptySet
+    },
+    methods: {
+        ...mapActions([
+            'competitions/deletePlayers'
+        ]),
+        deletePlayers(playerID) {
+            this['competitions/deletePlayers'](playerID);
+        }
     }
 }
 </script>

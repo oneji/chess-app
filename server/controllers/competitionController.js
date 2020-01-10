@@ -147,11 +147,40 @@ function addPlayers(req, res) {
         });    
 }
 
+/**
+ * Remove participants from the competition
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+function removePlayers(req, res) {
+    Competition.findOne({ _id: req.params.id })
+        .then((competition) => {
+            competition.players = competition.players.filter(player => {
+                return player.toString() !== req.params.playerId.toString()
+            });
+
+            competition.save((err) => {
+                if(err) return console.log(err);
+
+                res.json({
+                    ok: true,
+                    message: 'Player has been successfully removed.',
+                    params: req.params,
+                    competition
+                });
+            });
+        });
+
+    
+}
+
 // Export
 module.exports = {
     get,
     getById,
     getBySlug,
     create,
-    addPlayers
+    addPlayers,
+    removePlayers
 }
