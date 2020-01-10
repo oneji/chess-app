@@ -6,15 +6,15 @@
           class="player-photo"
         >
             <v-layout column fill-height>
-                <v-card-title>
+                <v-card-title class="py-2 px-2">
                     <v-spacer></v-spacer>
 
-                    <v-btn dark icon class="mr-3">
+                    <v-btn dark icon>
                         <v-icon>edit</v-icon>
                     </v-btn>
 
                     <v-btn dark icon>
-                        <v-icon>delete</v-icon>
+                        <v-icon color="red">delete</v-icon>
                     </v-btn>
                 </v-card-title>
 

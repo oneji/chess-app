@@ -24,7 +24,10 @@
                         </v-list-tile-content>
 
                         <v-list-tile-action>
-                            <v-btn small flat fab @click="deletePlayers(item._id)">
+                            <v-btn 
+                                small flat fab 
+                                :loading="deletedLoading === item._id.toString() ? true : false"
+                                @click="deletePlayers(item._id)">
                                 <v-icon color="red">delete</v-icon>
                             </v-btn>
                         </v-list-tile-action>
@@ -59,20 +62,24 @@ export default {
         PlayersSelector,
         EmptySet
     },
+    data() {
+        return {
+            deletedLoading: null
+        }
+    },
     methods: {
         ...mapActions([
             'competitions/deletePlayers'
         ]),
         deletePlayers(playerID) {
+            this.deletedLoading = playerID;
             this['competitions/deletePlayers'](playerID);
+            this.deletedLoading = null;
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    // .participants-list {
-    //     height: 50vh;
-    //     overflow-y: scroll;
-    // }
+
 </style>

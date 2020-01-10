@@ -6,7 +6,7 @@
             class="layout row wrap"
             v-if="players.length !== 0"
         >
-            <v-flex xs12 sm4 md2 lg2 v-for="player in players" :key="player._id">
+            <v-flex xs12 sm4 md3 lg2 v-for="player in players" :key="player._id">
                 <Player :item="player" />
             </v-flex>
         </v-scale-transition>

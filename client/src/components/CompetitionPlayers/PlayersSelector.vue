@@ -74,6 +74,7 @@ export default {
 
         addPlayerToParticipants() {
             this.$store.dispatch('competitions/addPlayers', this.playersToParticipate);
+            this.playersToParticipate = [];
         }
     },
     created() {
