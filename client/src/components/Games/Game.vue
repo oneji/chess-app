@@ -1,13 +1,16 @@
 <template>
     <v-layout row wrap>
         <v-flex xs12 sm5 md5 lg5>
-            <GamePlayer :item="item.whites" playerType="Whites" />
+            <GamePlayer :item="item.whites" playerType="Whites" :game="item" />
         </v-flex>
         <v-flex xs12 sm2 md2 lg2>
-            <GamePlayersDivider :gameNumber="gameNumber" />
+            <GamePlayersDivider 
+                :gameNumber="gameNumber" 
+                :started="item.started"
+                @sex="start(item._id)" />
         </v-flex>
         <v-flex xs12 sm5 md5 lg5>
-            <GamePlayer :item="item.blacks" playerType="Blacks" />
+            <GamePlayer :item="item.blacks" playerType="Blacks" :game="item" />
         </v-flex>
     </v-layout>
 </template>
@@ -15,6 +18,7 @@
 <script>
 import GamePlayer from './GamePlayer'
 import GamePlayersDivider from './GamePlayersDivider'
+import { mapActions } from 'vuex';
 
 export default {
     props: {
@@ -28,6 +32,14 @@ export default {
     components: {
         GamePlayer,
         GamePlayersDivider
+    },
+    methods: {
+        ...mapActions('competitions', [
+            'startCompetitionGame'
+        ]),
+        start(gameID) {
+            this.startCompetitionGame(gameID);
+        }
     }
 }
 </script>

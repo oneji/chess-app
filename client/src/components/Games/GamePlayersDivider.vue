@@ -1,16 +1,27 @@
 <template>
     <div class="game-players-divider">
-        <div class="game-players-divider-text">Game {{ gameNumber }}</div>
+        <div class="game-players-divider-text">
+            <AppBadge :text="`Game ${gameNumber}`" color="primary" />
+        </div>
         <div class="game-players-divider-item"></div>
+        <div class="game-players-divider-text" v-if="!started">
+            <v-btn color="warning" small @click="$emit('sex')">Start game</v-btn>
+        </div>
+        <div class="game-players-divider-text" v-if="started">
+            <AppBadge text="Started" color="success" />
+        </div>
     </div>
 </template>
 
 <script>
+import AppBadge from '../AppBadge'
 export default {
     props: {
-        gameNumber: {
-            type: Number
-        }
+        gameNumber: Number,
+        started: Boolean
+    },
+    components: {
+        AppBadge
     }
 }
 </script>
@@ -29,6 +40,7 @@ export default {
             height: 1px;
             width: 100%;
             border-radius: 10px;
+            margin: 5px 0;
         }
     }
 </style>

@@ -94,8 +94,33 @@ function create(req, res) {
     });
 }
 
+function start(req, res) {
+    if(!req.params.id) {
+        return res.json({
+            ok: false,
+            message: 'Missing parametr.'
+        });
+    }
+
+    Game.findById(req.params.id)
+        .then(game => {
+            game.started = true;
+            
+            game.save(err => {
+                if(err) return console.log(err);
+
+                return res.json({
+                    ok: true,
+                    message: 'The game has been successfully started.',
+                    game
+                });
+            });
+        });
+}
+
 module.exports = {
     get,
     create,
-    generateGames
+    generateGames,
+    start
 }

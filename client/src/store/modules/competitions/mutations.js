@@ -37,5 +37,11 @@ export default {
 
     [mutationTypes.SET_COMPETITION_STARTED] (state) {
         state.currentCompetition.started = true;
+    },
+
+    [mutationTypes.START_COMPETITION_GAME] (state, gameID) {
+        state.currentCompetition.games.map(game => {
+            game._id.toString() === gameID.toString() ? game.started = true : null;
+        });
     }
 }
