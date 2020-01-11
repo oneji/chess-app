@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
-    gameType:       { type: String, required: true, trim: true },
+    started:        { type: Boolean, default: false },
+    ended:          { type: Boolean, default: false },
     whites:         { type: Schema.Types.ObjectId, ref: 'Player' },
     whitesTime:     { type: String, default: null },
     blacks:         { type: Schema.Types.ObjectId, ref: 'Player' },

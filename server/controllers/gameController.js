@@ -20,6 +20,35 @@ function get(req, res) {
     })
 }
 
+function generateGames(shuffledPlayers, competition) {
+    // Games array to be added to a competition
+    let games = [];
+    whites = shuffledPlayers.whites;
+    blacks = shuffledPlayers.blacks;
+
+    for(let i = 0; i < whites.length; i++) {
+        // Defining white and black players
+        let whitePlayer = whites[i];
+        let blackPlayer = blacks[i];
+
+        // Creating a game
+        let game = new Game({
+            whites: whitePlayer,
+            whitesTime: null,
+            blacks: blackPlayer,
+            blacksTime: null,
+            winner: null,
+            competition: competition,
+        });
+
+        Game.insertMany(games, (err) => {
+            if(err) return console.log(err);
+        });
+    }
+
+    return games;
+}
+
 /**
  * Create a new game
  * 
@@ -67,5 +96,6 @@ function create(req, res) {
 
 module.exports = {
     get,
-    create
+    create,
+    generateGames
 }

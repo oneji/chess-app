@@ -29,5 +29,13 @@ export default {
         state.currentCompetition.players = state.currentCompetition.players.filter(players => {
             return players._id.toString() !== playerId.toString()
         });
+    },
+
+    [mutationTypes.SET_COMPETITION_GAMES] (state, games) {
+        state.currentCompetition.games = games;
+    },
+
+    [mutationTypes.SET_COMPETITION_STARTED] (state) {
+        state.currentCompetition.started = true;
     }
 }

@@ -8,6 +8,7 @@ const competitionSchema = new Schema({
     players:            [{ type: Schema.Types.ObjectId, ref: 'Player' }],
     deleted:            { type: Boolean, default: false },
     createdAt:          { type: Date, default: Date.now() },
+    games:              [{ type: Schema.Types.ObjectId, ref: 'Game' }],
     slug:               { type: String, default: '' }
 });
 

@@ -5,6 +5,10 @@ export default {
         return axios.get('/competitions');
     },
 
+    getCompetitionGames(competitionID) {
+        return axios.get(`/competitions/${competitionID}/games`);
+    },
+
     createCompetition(data) {
         return axios.post('/competitions', data);
     },
@@ -25,5 +29,11 @@ export default {
 
     deletePlayers(competitionID, playerID) {
         return axios.delete(`competitions/${competitionID}/removePlayers/${playerID}`);
+    },
+
+    startCompetition(competitionID) {
+        return axios.post(`competitions/start`, {
+            id: competitionID
+        });
     }
 }

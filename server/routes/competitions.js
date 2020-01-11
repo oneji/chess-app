@@ -23,7 +23,9 @@ router.get('/getBySlug/:slug', CompetitionController.getBySlug);
 router.post('/', upload.single('competitionLogo'), CompetitionController.create);
 router.delete('/remove/:id', CompetitionController.remove);
 router.post('/:id/addPlayers', CompetitionController.addPlayers);
-router.delete('/:id/removePlayers/:playerId', CompetitionController.removePlayers)
+router.delete('/:id/removePlayers/:playerId', CompetitionController.removePlayers);
+router.post('/start', CompetitionController.start);
+router.get('/:id/games', CompetitionController.getCompetitionGames);
 
 // Export
 module.exports = router

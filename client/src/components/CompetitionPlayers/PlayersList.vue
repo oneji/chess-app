@@ -1,10 +1,22 @@
 <template>
     <div>
-        <PlayersSelector />
+        <transition name="scale-transition" origin="center center" mode="out-in">
+            <PlayersSelector v-if="!competition.started" />
 
-        <v-card v-if="items.length !== 0">
-            <v-list subheader class="participants-list">
-                <v-subheader>List of participants</v-subheader>
+            <v-btn v-if="competition.started"
+                color="success" 
+                block
+                outline
+                class="mb-3"
+            >   
+                Player addition is no more available...
+            </v-btn>
+        </transition>
+        
+        <transition  name="scale-transition" origin="center center" mode="out-in">
+            <v-card v-if="items.length !== 0">
+                <transition-group name="scale-transition" mode="out-in" tag="div" class="v-list participants-list v-list--subheader">
+                    <v-subheader :key="123">List of participants</v-subheader>
                     <v-list-tile
                         v-for="(item, idx) in items"
                         :key="idx"
@@ -23,7 +35,7 @@
                             <v-list-tile-title v-html="item.playerName"></v-list-tile-title>
                         </v-list-tile-content>
 
-                        <v-list-tile-action>
+                        <v-list-tile-action v-if="!$store.getters['competitions/getCompetition'].started">
                             <v-btn 
                                 small flat fab 
                                 :loading="deletedLoading === item._id.toString() ? true : false"
@@ -31,13 +43,13 @@
                                 <v-icon color="red">delete</v-icon>
                             </v-btn>
                         </v-list-tile-action>
-                    </v-list-tile>                
-            </v-list>
-        </v-card>
-
-        <EmptySet 
-            v-else
-            text="No competition participants at the moment." />
+                    </v-list-tile>   
+                </transition-group>
+            </v-card>
+            <EmptySet 
+                v-else
+                text="No competition participants at the moment." />
+        </transition>
     </div>
 </template>
 
@@ -56,6 +68,9 @@ export default {
     computed: {
         API_URL() {
             return process.env.VUE_APP_API_URL;
+        },
+        competition() {
+            return this.$store.getters['competitions/getCompetition'];
         }
     },
     components: {

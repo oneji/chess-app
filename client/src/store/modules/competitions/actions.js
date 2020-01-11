@@ -14,6 +14,16 @@ export default {
         }
     },
 
+    async getCompetitionGames({ state, commit }) {
+        let competition = store.getters['competitions/getCompetition'];
+        let { data } = await api.getCompetitionGames(competition._id);
+
+        if(!data.ok) console.log('competitions error');
+        else {
+            commit(mutationTypes.SET_COMPETITION_GAMES, data.games);
+        }
+    },
+
     async addPlayers({ state, commit, rootState }, players) {
         let competition = store.getters['competitions/getCompetition'];
         let { data } = await api.addPlayers(competition._id, players);
@@ -74,6 +84,20 @@ export default {
         if(!data.ok) console.log('error')
         else {
             commit(mutationTypes.DELETE_COMPETITION, competitionId);
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
+    },
+
+    async startCompetition({ state, commit, dispatch }, competitionId) {
+        let { data } = await api.startCompetition(competitionId);
+
+        if(!data.ok) console.log('error')
+        else {
+            commit(mutationTypes.SET_COMPETITION_STARTED);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,

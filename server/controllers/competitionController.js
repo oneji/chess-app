@@ -1,8 +1,10 @@
 const slugGenerator = require('limax')
 const Competition = require('../models/competition')
 const Player = require('../models/player')
-const User = require('../models/user')
+const Game = require('../models/game')
 const Joi = require('joi')
+
+const GameController = require('./gameController');
 
 /**
  * Get all user competitions
@@ -46,6 +48,11 @@ function getById(req, res) {
 function getBySlug(req, res) {
     Competition.findOne({ 'slug': req.params.slug })
         .populate('players')
+        .populate({
+            path: 'games',
+            model: 'Game',
+            populate: { path: 'whites' },
+        })
         .exec((err, competition) => {
             res.json({
                 'ok': true,
@@ -192,8 +199,116 @@ function removePlayers(req, res) {
                 });
             });
         });
+}
 
-    
+function start(req, res) {
+    if(!req.body.id) {
+        return res.json({
+            ok: false,
+            message: 'Missing parameteres.'
+        });
+    }
+
+    Competition.findOne({ _id: req.body.id })
+        .then(competition => {
+            // Shuffle competition players
+            shuffledPlayers = shufflePlayers(competition.players);            
+            
+            // Games array to be added to a competition
+            let games = [];
+            whites = shuffledPlayers.whites;
+            blacks = shuffledPlayers.blacks;
+
+            // Generate games for the competition
+            for(let i = 0; i < whites.length; i++) {
+                // Defining white and black players
+                let whitePlayer = whites[i];
+                let blackPlayer = blacks[i];
+
+                // Creating games and getting ready for mass insert to the DB
+                games.push(new Game({
+                    whites: whitePlayer,
+                    whitesTime: null,
+                    blacks: blackPlayer,
+                    blacksTime: null,
+                    winner: null,
+                    competition: competition,
+                }));
+            }
+
+            Game.insertMany(games, function(err) {
+                if(err) return console.log(err);
+            });
+
+            competition.started = true;
+            for(let i = 0; i < games.length; i++) {
+                competition.games.push(games[i]._id);
+            }
+
+            competition.save(err => {
+                if(err) return console.log(err);
+
+                return res.json({
+                    ok: true,
+                    message: 'Competition has been successfully started.',
+                    shuffledPlayers,
+                    competition,
+                    games
+                });
+            });
+        });
+}
+
+function shufflePlayers(players) {
+    let whites = [];
+    let blacks = [];
+    let playersCount = players.length;
+
+    if(playersCount % 2 === 0) {
+        
+        for(let i = 0; i < playersCount/2; i++) {
+            randomNumber = Math.floor(Math.random() * Math.floor(playersCount));
+            whites.push(players[randomNumber]);
+        }
+
+        for(let i = 0; i < playersCount; i++) {
+            let inWhites = false;
+            for(let j = 0; j < whites.length; j++) {
+                if(players[i].toString() === whites[j].toString()) {
+                    inWhites = true;
+                }
+            }
+
+            if(!inWhites) {
+                blacks.push(players[i]);
+            }
+        }
+
+    }
+
+    return {
+        whites,
+        blacks
+    };
+}
+
+function getCompetitionGames(req, res) {
+    if(!req.params.id) {
+        return res.json({
+            ok: false,
+            message: 'Missing parametr'
+        });
+    }
+
+    Game.find({ competition: req.params.id })
+        .populate('whites')
+        .populate('blacks')
+        .then(games => {
+            return res.json({
+                ok: true,
+                games
+            });
+        });
 }
 
 // Export
@@ -204,5 +319,7 @@ module.exports = {
     create,
     remove,
     addPlayers,
-    removePlayers
+    removePlayers,
+    start,
+    getCompetitionGames
 }
