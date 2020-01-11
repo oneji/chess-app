@@ -2,7 +2,7 @@
     <div>
         <v-divider></v-divider>
         <div v-for="(game, idx) in games" :key="game._id">
-            <Game :item="game" :gameNumber="idx + 1" class="my-1" />
+            <Game :item="game || {}" :gameNumber="idx + 1" class="my-1" />
             <v-divider></v-divider>
         </div>
     </div>

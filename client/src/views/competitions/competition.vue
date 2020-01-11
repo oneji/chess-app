@@ -10,7 +10,7 @@
                 <v-btn color="success" block v-else class="mb-3">Upcoming games</v-btn>
             </transition>
             <GamesList 
-                :games="competition.games" />
+                :games="games" />
         </v-flex>
     </v-layout>
 </template>
@@ -33,6 +33,10 @@ export default {
 
         competition() {
             return this.$store.getters['competitions/getCompetition'];
+        },
+
+        games() {
+            return this.$store.getters['games/getGames'];
         }
     },
     methods: {
@@ -42,14 +46,14 @@ export default {
         start() {
             this.$store.dispatch('competitions/startCompetition', this.competition._id)
                 .then(() => {
-                    this.$store.dispatch('competitions/getCompetitionGames', this.competition._id);
+                    this.$store.dispatch('games/getCompetitionGames', this.competition._id);
                 });
         }
     },
     created() {
         this.$store.dispatch('competitions/getCompetitionBySlug', this.$route.params.slug)
             .then(() => {
-                this.$store.dispatch('competitions/getCompetitionGames', this.competition._id);
+                this.$store.dispatch('games/getCompetitionGames', this.competition._id);
             });
     }
 }

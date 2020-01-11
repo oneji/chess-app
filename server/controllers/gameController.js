@@ -8,15 +8,22 @@ const Joi = require('joi');
  * @param {*} res
  */
 function get(req, res) {
-    // Find all competition's games
-    Game.find({})
-    .populate('whites')
-    .populate('blacks')
-    .exec((err, games) => {
-        res.json({
-            'ok': true,
-            'games': games
+    if(req.params.competitionId === undefined) {
+        return res.json({
+            ok: false,
+            message: 'Missing parametr'
         });
+    }
+
+    // Find all competition's games
+    Game.find({ competition: req.params.competitionId })
+        .populate('whites')
+        .populate('blacks')
+        .exec((err, games) => {
+            res.json({
+                'ok': true,
+                'games': games
+            });
     })
 }
 
@@ -118,9 +125,41 @@ function start(req, res) {
         });
 }
 
+function setTheWinner(req, res) {
+    if(req.body.playerId === undefined) {
+        return res.json({
+            ok: false,
+            message: 'Missing parametr.',
+            body: req.body
+        });
+    }
+
+    let winnerID = req.body.playerId.toString();
+    
+    Game.findById(req.params.id)
+        .then(game => {
+            game.winner = winnerID === game.whites.toString() ? 'whites' : 'blacks';
+
+            game.save(err => {
+                if(err) return console.log(err);
+
+                return res.json({
+                    ok: true,
+                    message: '',
+                    game,
+                    winnerID
+                });
+            });
+
+            
+        });
+}
+
+
 module.exports = {
     get,
     create,
     generateGames,
-    start
+    start,
+    setTheWinner
 }

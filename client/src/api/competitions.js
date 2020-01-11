@@ -36,8 +36,4 @@ export default {
             id: competitionID
         });
     },
-
-    startCompetitionGame(gameID) {
-        return axios.post(`/games/start/${gameID}`);
-    }
 }

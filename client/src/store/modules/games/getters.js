@@ -1,13 +1,9 @@
 export default {
-    getCompetitions(state) {
-        return state.competitions;
+    getGames(state) {
+        return state.games;
     },
-
-    createCompetition(state) {
-        return state.createCompetition;
-    },
-
-    getCompetition(state) {
-        return state.currentCompetition;
+    
+    getCurrentGame(state) {
+        return state.currentGame;
     },
 }

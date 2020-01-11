@@ -5,10 +5,24 @@
         </div>
         <div class="game-players-divider-item"></div>
         <div class="game-players-divider-text" v-if="!started">
-            <v-btn color="warning" small @click="$emit('sex')">Start game</v-btn>
+            <v-btn color="warning" small @click="$emit('start')">Start game</v-btn>
         </div>
         <div class="game-players-divider-text" v-if="started">
             <AppBadge text="Started" color="success" />
+        </div>
+        <div class="game-players-divider-text" v-if="started">
+            <v-tooltip bottom>
+                <v-btn icon ripple slot="activator" @click="$emit('finish')">
+                    <v-icon color="grey">remove_red_eye</v-icon>
+                </v-btn>                        
+                <span>Watch</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <v-btn icon ripple slot="activator" @click="$emit('finish')">
+                    <v-icon color="red">stop</v-icon>
+                </v-btn>                        
+                <span>Finish</span>
+            </v-tooltip>
         </div>
     </div>
 </template>

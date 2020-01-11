@@ -1,16 +1,16 @@
 <template>
     <v-layout row wrap>
         <v-flex xs12 sm5 md5 lg5>
-            <GamePlayer :item="item.whites" playerType="Whites" :game="item" />
+            <GamePlayer :item="item.whites || {}" playerType="Whites" :game="item" @winner="setWinner" />
         </v-flex>
         <v-flex xs12 sm2 md2 lg2>
             <GamePlayersDivider 
                 :gameNumber="gameNumber" 
                 :started="item.started"
-                @sex="start(item._id)" />
+                @start="start(item._id)" />
         </v-flex>
         <v-flex xs12 sm5 md5 lg5>
-            <GamePlayer :item="item.blacks" playerType="Blacks" :game="item" />
+            <GamePlayer :item="item.blacks || {}" playerType="Blacks" :game="item" @winner="setWinner" />
         </v-flex>
     </v-layout>
 </template>
@@ -34,11 +34,14 @@ export default {
         GamePlayersDivider
     },
     methods: {
-        ...mapActions('competitions', [
-            'startCompetitionGame'
+        ...mapActions('games', [
+            'startGame'
         ]),
         start(gameID) {
-            this.startCompetitionGame(gameID);
+            this.startGame(gameID);
+        },
+        setWinner(playerId) {
+            this.$store.dispatch('games/setWinner', { gameId: this.item._id, playerId });
         }
     }
 }

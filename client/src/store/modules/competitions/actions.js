@@ -106,20 +106,6 @@ export default {
         }
     },
 
-    async startCompetitionGame({ state, commit }, gameID) {
-        let { data } = await api.startCompetitionGame(gameID);
-
-        if(!data.ok) console.log('error')
-        else {
-            commit(mutationTypes.START_COMPETITION_GAME, gameID);
-            commit(rootMutationTypes.SNACKBAR, {
-                color: 'success',
-                active: true,
-                text: data.message
-            }, { root: true });
-        }
-    },
-
     setCreateCompetition({ state, commit, rootState }, createCompetitionState) {
         commit(mutationTypes.SET_CREATE_COMPETITION, createCompetitionState);
     }

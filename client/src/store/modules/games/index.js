@@ -5,7 +5,8 @@ import actions from './actions'
 const gamesModule = {
     namespaced: true,
     state: {
-        
+        games: [],
+        currentGame: []
     },
     getters,
     mutations,
