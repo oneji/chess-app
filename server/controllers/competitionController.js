@@ -232,6 +232,8 @@ function start(req, res) {
                     blacks: blackPlayer,
                     blacksTime: null,
                     winner: null,
+                    history: [],
+                    fen: null,
                     competition: competition,
                 }));
             }

@@ -9,7 +9,7 @@ export default {
         if(!data.ok) console.log('players error');
         else {
             commit(mutationTypes.SET_PLAYERS, data.players);
-            commit('setContentLoading', false, { root: true });    
+            commit('setContentLoading', false, { root: true });
         }
     },
 

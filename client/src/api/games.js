@@ -11,5 +11,9 @@ export default {
 
     setWinner(gameId, playerId) {
         return axios.post(`/games/${gameId}/setTheWinner`, { playerId });
+    },
+
+    getById(gameId) {
+        return axios.get(`/games/getById/${gameId}`);
     }
 }

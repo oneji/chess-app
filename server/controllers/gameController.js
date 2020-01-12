@@ -27,6 +27,25 @@ function get(req, res) {
     })
 }
 
+function getGameById(req, res) {
+    if(req.params.id === undefined) {
+        return res.json({
+            ok: false,
+            message: 'Missing params.'
+        });
+    }
+
+    Game.findOne({ _id: req.params.id })
+        .populate('whites')
+        .populate('blacks')
+        .then(game => {
+            return res.json({
+                ok: true,
+                game
+            });
+        });
+}
+
 function generateGames(shuffledPlayers, competition) {
     // Games array to be added to a competition
     let games = [];
@@ -45,6 +64,8 @@ function generateGames(shuffledPlayers, competition) {
             blacks: blackPlayer,
             blacksTime: null,
             winner: null,
+            history: [],
+            fen: null,
             competition: competition,
         });
 
@@ -63,21 +84,6 @@ function generateGames(shuffledPlayers, competition) {
  * @param {*} res 
  */
 function create(req, res) {
-    // Validation
-    // const schema = Joi.object().keys({
-    //     gameType: Joi.string().required(),
-    //     competition: Joi.optional()
-    // });
-
-    // Joi.validate(req.body, schema, (err, result) => {
-    //     if(err) {
-    //         res.json({
-    //             'ok': false,
-    //             'error': err.details
-    //         });
-    //     }
-    // });
-
     // Creating a game
     let game = new Game({
         gameType: req.body.gameType,
@@ -86,6 +92,8 @@ function create(req, res) {
         blacks: req.body.blacks,
         blacksTime: req.body.blacksTime,
         winner: req.body.winner,
+        history: [],
+        fen: null,
         competition: req.body.competition,
     });
     
@@ -155,9 +163,9 @@ function setTheWinner(req, res) {
         });
 }
 
-
 module.exports = {
     get,
+    getGameById,
     create,
     generateGames,
     start,

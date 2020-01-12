@@ -55,7 +55,7 @@ export default {
     .breadcrumbs-list {
         display: flex;
         width: 100%;
-        padding: 15px;
+        padding: 7px;
         justify-content: flex-end;
 
         li {

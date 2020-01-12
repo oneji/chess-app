@@ -13,6 +13,17 @@ export default {
         }
     },
 
+    async getById({ state, commit }, gameId) {
+        commit('setContentLoading', true, { root: true });
+        let { data } = await api.getById(gameId);
+
+        if(!data) console.log('games error');
+        else {
+            commit(mutationTypes.SET_CURRENT_GAME, data.game);
+            commit('setContentLoading', false, { root: true });
+        }
+    },
+
     async startGame({ state, commit }, gameID) {
         let { data } = await api.startGame(gameID);
 

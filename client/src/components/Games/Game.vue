@@ -6,7 +6,7 @@
         <v-flex xs12 sm2 md2 lg2>
             <GamePlayersDivider 
                 :gameNumber="gameNumber" 
-                :started="item.started"
+                :game="item"
                 @start="start(item._id)" />
         </v-flex>
         <v-flex xs12 sm5 md5 lg5>

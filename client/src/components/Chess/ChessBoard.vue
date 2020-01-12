@@ -69,6 +69,8 @@ export default {
                 threats['fen'] = this.chess.fen();
                 this.$emit('onMove', threats);
             }
+
+            console.log(this.chess.fen());
         },
         loadPosition() {
             this.chess.load(this.fen);
@@ -76,7 +78,7 @@ export default {
                 fen: this.chess.fen(),
                 turnColor: this.toColor(),
                 movable: {
-                    free: false,
+                    free: this.free,
                     color: this.toColor(),
                     dests: this.possibleMoves(),
                 },
@@ -162,9 +164,9 @@ export default {
     },
     created() {
         this.chess = new Chess();
-        this.board = null
-        this.promotions = []
-        this.promoteTo = 'q'
+        this.board = null;
+        this.promotions = [];
+        this.promoteTo = 'q';
     }
 }
 </script>

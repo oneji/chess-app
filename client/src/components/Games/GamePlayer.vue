@@ -1,7 +1,9 @@
 <template>
     <v-card>
         <v-list two-line class="py-0">
-        <div class="loser-player" v-if="gameLoser"></div>
+        <transition name="scale-transition" mode="out-in">
+            <div class="loser-player" v-if="gameLoser"></div>
+        </transition>
         <template>
             <v-subheader class="game-player-subheader">{{ playerType }}</v-subheader>
             <v-divider :inset="false"></v-divider>

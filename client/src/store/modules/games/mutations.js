@@ -19,5 +19,13 @@ export default {
                 game.winner = winner;
             }
         });
+
+        if(state.currentGame) {
+            state.currentGame.winner = winner;
+        }
+    },
+
+    [mutationTypes.SET_CURRENT_GAME] (state, game) {
+        state.currentGame = game;
     }
 }

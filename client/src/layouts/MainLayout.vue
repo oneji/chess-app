@@ -8,7 +8,7 @@
             <Breadcrumbs />
             <!-- Content loading -->
             <Loading v-if="$store.getters.getContentLoading" />
-            <v-container fluid grid-list-md>
+            <v-container fluid grid-list-md class="pt-2">
                 <transition name="slide-x-transition" mode="out-in">
                     <router-view />
                 </transition>

@@ -1,18 +1,18 @@
 <template>
     <div class="game-players-divider">
-        <div class="game-players-divider-text">
+        <div class="game-players-divider-text" v-if="gameNumber">
             <AppBadge :text="`Game ${gameNumber}`" color="primary" />
         </div>
         <div class="game-players-divider-item"></div>
-        <div class="game-players-divider-text" v-if="!started">
+        <div class="game-players-divider-text" v-if="!game.started">
             <v-btn color="warning" small @click="$emit('start')">Start game</v-btn>
         </div>
-        <div class="game-players-divider-text" v-if="started">
+        <div class="game-players-divider-text" v-if="game.started">
             <AppBadge text="Started" color="success" />
         </div>
-        <div class="game-players-divider-text" v-if="started">
+        <div class="game-players-divider-text" v-if="game.started">
             <v-tooltip bottom>
-                <v-btn icon ripple slot="activator" @click="$emit('finish')">
+                <v-btn icon ripple slot="activator" :to="{ name: 'Game', params: { id: game._id } }">
                     <v-icon color="grey">remove_red_eye</v-icon>
                 </v-btn>                        
                 <span>Watch</span>
@@ -29,10 +29,11 @@
 
 <script>
 import AppBadge from '../AppBadge'
+
 export default {
     props: {
         gameNumber: Number,
-        started: Boolean
+        game: Object
     },
     components: {
         AppBadge
