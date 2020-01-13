@@ -5,8 +5,8 @@ export default {
         return axios.get(`/games/${competitionId}`);
     },
 
-    startGame(gameID) {
-        return axios.post(`/games/start/${gameID}`);
+    startGame(gameId) {
+        return axios.post(`/games/start/${gameId}`);
     },
 
     setWinner(gameId, playerId) {
@@ -15,5 +15,13 @@ export default {
 
     getById(gameId) {
         return axios.get(`/games/getById/${gameId}`);
+    },
+
+    finishGame(options) {
+        let { gameId, time } = options;
+        return axios.put(`/games/finish/${gameId}`, {
+            whitesTime: time.whites,
+            blacksTime: time.blacks
+        });
     }
 }

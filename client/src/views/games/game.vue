@@ -1,9 +1,9 @@
 <template>
     <v-layout row wrap v-if="!$store.getters.getContentLoading">
-        <v-flex xs12 sm8 md8 lg8 offset-md2 offset-lg2>
+        <v-flex xs12 sm12 md8 lg8 offset-md2 offset-lg2>
             <Game :item="game" class="my-1" />
         </v-flex>
-        <v-flex xs12 sm8 md4 lg4 offset-md4 offset-lg4>
+        <v-flex xs12 sm12 md4 lg4 offset-md4 offset-lg4>
             <v-card>
                 <v-card-title>
                     <ChessBoard :free="true"/>

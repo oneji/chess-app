@@ -6,4 +6,8 @@ export default {
     getCurrentGame(state) {
         return state.currentGame;
     },
+
+    getFinishGameForm(state) {
+        return state.finishGameForm;
+    }
 }

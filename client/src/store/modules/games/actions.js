@@ -49,5 +49,24 @@ export default {
                 winner: data.game.winner
             });
         }
+    },
+
+    async finishGame({ state, commit }, options) {
+        let { data } = await api.finishGame(options);
+
+        if(!data) console.log('games error');
+        else {
+            console.log(data);
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
+    },
+
+    showFinishGameForm({ state, commit }, { status, game }) {
+        commit(mutationTypes.SHOW_FINISH_GAME_FORM, status);
+        commit(mutationTypes.SET_CURRENT_GAME, game);
     }
 }

@@ -6,7 +6,8 @@ const gamesModule = {
     namespaced: true,
     state: {
         games: [],
-        currentGame: []
+        currentGame: {},
+        finishGameForm: false
     },
     getters,
     mutations,

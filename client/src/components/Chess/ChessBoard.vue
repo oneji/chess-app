@@ -69,8 +69,6 @@ export default {
                 threats['fen'] = this.chess.fen();
                 this.$emit('onMove', threats);
             }
-
-            console.log(this.chess.fen());
         },
         loadPosition() {
             this.chess.load(this.fen);

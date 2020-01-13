@@ -30,5 +30,9 @@ export default {
         &-primary {
             background: #1867c0 !important;
         }
+
+        &-danger {
+            background: #f44336 !important;
+        }
     }
 </style>

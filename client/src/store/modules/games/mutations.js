@@ -27,5 +27,13 @@ export default {
 
     [mutationTypes.SET_CURRENT_GAME] (state, game) {
         state.currentGame = game;
+    },
+
+    [mutationTypes.SHOW_FINISH_GAME_FORM] (state, status) {
+        state.finishGameForm = status;
+    },
+
+    [mutationTypes.SET_FINISH_GAME] (state, gameId) {
+        
     }
 }

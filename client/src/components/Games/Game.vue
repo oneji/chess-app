@@ -1,7 +1,11 @@
 <template>
     <v-layout row wrap>
         <v-flex xs12 sm5 md5 lg5>
-            <GamePlayer :item="item.whites || {}" playerType="Whites" :game="item" @winner="setWinner" />
+            <GamePlayer 
+                :item="item.whites || {}"
+                :game="item"
+                playerType="Whites"
+                @winner="setWinner" />
         </v-flex>
         <v-flex xs12 sm2 md2 lg2>
             <GamePlayersDivider 
@@ -10,7 +14,11 @@
                 @start="start(item._id)" />
         </v-flex>
         <v-flex xs12 sm5 md5 lg5>
-            <GamePlayer :item="item.blacks || {}" playerType="Blacks" :game="item" @winner="setWinner" />
+            <GamePlayer 
+                :item="item.blacks || {}"
+                :game="item"
+                playerType="Blacks"
+                @winner="setWinner" />
         </v-flex>
     </v-layout>
 </template>

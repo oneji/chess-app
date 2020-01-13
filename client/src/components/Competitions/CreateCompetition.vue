@@ -49,7 +49,7 @@
                     </v-card-actions>
                 </v-form>
             </v-card>
-        </v-dialog>        
+        </v-dialog>
     </div>
 </template>
 

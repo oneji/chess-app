@@ -163,11 +163,30 @@ function setTheWinner(req, res) {
         });
 }
 
+function finish(req, res) {
+    Game.findById(req.params.id)
+        .then(game => {
+            game.ended = true;
+            game.whitesTime = req.body.whitesTime;
+            game.blacksTime = req.body.blacksTime;
+            
+            game.save(err => {
+                if(err) return console.log(err);
+
+                return res.json({
+                    ok: true,
+                    message: 'The game has been successfully finished.'
+                });
+            });
+        });
+}
+
 module.exports = {
     get,
     getGameById,
     create,
     generateGames,
     start,
+    finish,
     setTheWinner
 }

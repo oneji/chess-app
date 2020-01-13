@@ -17,6 +17,7 @@
                     v-if="$store.getters['competitions/createCompetition']" />
                 <CreatePlayer
                     v-if="$store.getters['players/createPlayer']" />
+                <FinishGameForm />
             </v-container>
         </v-content>
         <!-- Footer -->
@@ -28,18 +29,20 @@
 
 <script>
 import Toolbar from '@/components/Toolbar'
-import CreateCompetition from '@/components/Competitions/CreateCompetition'
-import CreatePlayer from '@/components/Players/CreatePlayer'
 import Loading from '@/components/Loading'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import CreateCompetition from '@/components/Competitions/CreateCompetition'
+import CreatePlayer from '@/components/Players/CreatePlayer'
+import FinishGameForm from '@/components/Games/FinishGameForm'
 
 export default {
     components: {
         Toolbar,
+        Loading,
+        Breadcrumbs,
         CreateCompetition,
         CreatePlayer,
-        Loading,
-        Breadcrumbs
+        FinishGameForm
     },
     computed: {
 
