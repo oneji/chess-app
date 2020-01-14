@@ -1,6 +1,6 @@
 <template>
     <v-toolbar app fixed clipped-left>
-        <v-btn :to="{ name: 'Home' }" fab small flat color="white">
+        <v-btn :to="{ name: 'HomePage' }" fab small flat color="white">
             <v-icon>home</v-icon>
         </v-btn>
         <v-btn :to="{ name: 'Competitions' }">Competitions</v-btn>
