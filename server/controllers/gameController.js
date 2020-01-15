@@ -65,7 +65,7 @@ function generateGames(shuffledPlayers, competition) {
             blacksTime: null,
             winner: null,
             history: [],
-            fen: null,
+            fen: '',
             competition: competition,
         });
 
@@ -93,7 +93,7 @@ function create(req, res) {
         blacksTime: req.body.blacksTime,
         winner: req.body.winner,
         history: [],
-        fen: null,
+        fen: '',
         competition: req.body.competition,
     });
     
@@ -181,6 +181,23 @@ function finish(req, res) {
         });
 }
 
+function saveHistory(req, res) {
+    Game.findById(req.params.id)
+        .then(game => {
+            game.history = req.body.history;
+            game.fen = req.body.fen;
+
+            game.save(err => {
+                if(err) return console.log(err);
+
+                return res.json({
+                    ok: true,
+                    message: 'History has been successfully saved.'
+                });
+            });
+        });
+}
+
 module.exports = {
     get,
     getGameById,
@@ -188,5 +205,6 @@ module.exports = {
     generateGames,
     start,
     finish,
-    setTheWinner
+    setTheWinner,
+    saveHistory
 }

@@ -15,7 +15,7 @@
         
         <transition  name="scale-transition" origin="center center" mode="out-in">
             <v-card v-if="items.length !== 0">
-                <transition-group name="scale-transition" mode="out-in" tag="div" class="v-list participants-list v-list--subheader">
+                <transition-group name="scale-transition" mode="out-in" tag="div" class="v-list participants-list v-list--subheader v-list--two-line">
                     <v-subheader :key="123">List of participants</v-subheader>
                     <v-list-tile
                         v-for="(item, idx) in items"
@@ -33,6 +33,7 @@
 
                         <v-list-tile-content>
                             <v-list-tile-title v-html="item.playerName"></v-list-tile-title>
+                            <v-list-tile-sub-title v-html="item.playerCountry"></v-list-tile-sub-title>
                         </v-list-tile-content>
 
                         <v-list-tile-action v-if="!$store.getters['competitions/getCompetition'].started">

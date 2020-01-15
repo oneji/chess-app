@@ -23,5 +23,14 @@ export default {
             whitesTime: time.whites,
             blacksTime: time.blacks
         });
+    },
+
+    setHistory(gameId, historyObj) {
+        let { history, fen } = historyObj;
+
+        return axios.post(`games/saveHistory/${gameId}`, {
+            history, 
+            fen
+        });
     }
 }

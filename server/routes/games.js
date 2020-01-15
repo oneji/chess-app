@@ -11,5 +11,6 @@ router.post('/', GameController.create);
 router.post('/start/:id', GameController.start);
 router.put('/finish/:id', GameController.finish);
 router.post('/:id/setTheWinner', GameController.setTheWinner);
+router.post('/saveHistory/:id', GameController.saveHistory);
 // Export
 module.exports = router

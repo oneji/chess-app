@@ -35,5 +35,11 @@ export default {
 
     [mutationTypes.SET_FINISH_GAME] (state, gameId) {
         
+    },
+
+    [mutationTypes.SET_GAME_HISTORY] (state, historyObj) {
+        let { history, fen } = historyObj;
+        state.currentGame.history = history;
+        state.currentGame.fen = fen;
     }
 }

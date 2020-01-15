@@ -233,7 +233,7 @@ function start(req, res) {
                     blacksTime: null,
                     winner: null,
                     history: [],
-                    fen: null,
+                    fen: '',
                     competition: competition,
                 }));
             }

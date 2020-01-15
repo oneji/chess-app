@@ -127,6 +127,7 @@ cg-board piece.fading {
 }
 .cg-board-wrap coords.ranks.black {
   flex-flow: column;
+  background-color: transparent !important;
 }
 .cg-board-wrap coords.files {
   bottom: -18px;
@@ -139,6 +140,7 @@ cg-board piece.fading {
 }
 .cg-board-wrap coords.files.black {
   flex-flow: row-reverse;
+  background-color: transparent !important;
 }
 .cg-board-wrap coords coord {
   flex: 1 1 auto;
@@ -154,7 +156,7 @@ cg-board piece.fading {
  */
 
 .cg-board-wrap {
-  background-image: url("//images.chesscomfiles.com/chess-themes/boards/green/76.png");
+  background-image: url("//images.chesscomfiles.com/chess-themes/boards/green/300.png");
   background-size: cover;
 }
 
@@ -164,39 +166,39 @@ cg-board piece.white, cg-board piece.black {
 }
 
 cg-board piece.pawn.white {
-  background-image: url("//images.chesscomfiles.com/chess-themes/pieces/neo/150/wp.png");
+  background-image: url("//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/wp.png");
 } 
 cg-board piece.bishop.white {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/wb.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/wb.png');
 }
 cg-board piece.knight.white {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/wn.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/wn.png');
 }
 cg-board piece.rook.white {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/wr.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/wr.png');
 }
 cg-board piece.queen.white {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/wq.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/wq.png');
 }
 cg-board piece.king.white {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/wk.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/wk.png');
 }
 /* Blacks */
 cg-board piece.pawn.black {
-  background-image: url("//images.chesscomfiles.com/chess-themes/pieces/neo/150/bp.png");
+  background-image: url("//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/bp.png");
 } 
 cg-board piece.bishop.black {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/bb.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/bb.png');
 }
 cg-board piece.knight.black {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/bn.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/bn.png');
 }
 cg-board piece.rook.black {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/br.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/br.png');
 }
 cg-board piece.queen.black {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/bq.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/bq.png');
 }
 cg-board piece.king.black {
-  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo/69/bk.png');
+  background-image: url('//images.chesscomfiles.com/chess-themes/pieces/neo_wood/196/bk.png');
 }

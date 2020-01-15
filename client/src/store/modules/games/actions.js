@@ -68,5 +68,20 @@ export default {
     showFinishGameForm({ state, commit }, { status, game }) {
         commit(mutationTypes.SHOW_FINISH_GAME_FORM, status);
         commit(mutationTypes.SET_CURRENT_GAME, game);
+    },
+
+    async setHistory({ state, commit }, { gameId, history, fen }) {
+        let { data } = await api.setHistory(gameId, { history, fen });
+
+        if(!data) console.log('game error');
+        else {
+            console.log(data)
+            commit(mutationTypes.SET_GAME_HISTORY, { history, fen });
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
     }
 }

@@ -20,6 +20,17 @@
                 playerType="Blacks"
                 @winner="setWinner" />
         </v-flex>
+        <!-- <v-flex xs12 sm5 md5 lg5>
+            <v-card>
+                <v-card-title>
+                    <v-btn-toggle mandatory>
+                        <v-btn flat v-for="(historyItem, idx) in item.history" :key="idx">
+                            <span>{{ historyItem }}</span>
+                        </v-btn>
+                    </v-btn-toggle>
+                </v-card-title>
+            </v-card>
+        </v-flex> -->
     </v-layout>
 </template>
 
@@ -56,5 +67,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    
+    .game-history-list {
+        padding: 0;
+        list-style-type: none;
+        
+        li {
+            border: 1px solid transparent;
+            transition: .3s all ease;
+            margin: 5px 0;
+            padding: 0 10px;
+
+            &:hover {
+                cursor: pointer;
+                border-color:#ddd;
+            }
+        }
+    }
 </style>

@@ -10,7 +10,7 @@ const gameSchema = new Schema({
     blacksTime:     { type: String, default: null },
     winner:         { type: String, default: null },
     history:        { type: Array, default: [] },
-    fen:            { type: String, default: null },
+    fen:            { type: String, default: '' },
     createdAt:      { type: Date, default: Date.now() },
     competition:    { type: Schema.Types.ObjectId, ref: 'Competition' }
 });

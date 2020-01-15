@@ -1,5 +1,11 @@
 <template>
-    <div ref="board" class="cg-board-wrap" v-resize="loadPosition"></div>
+    <div>
+        <ChessBoardControls 
+            @undo="stepBack"
+            @save="saveHistory"
+            @swap-side="swapSide" />
+        <div ref="board" class="cg-board-wrap" v-resize="loadPosition"></div>
+    </div>
 </template>
 
 <script>
@@ -7,11 +13,18 @@ import Chess from 'chess.js'
 import { Chessground } from 'chessground'
 import { uniques } from './Util.js'
 
+import ChessBoardControls from './ChessBoardControls'
+import { mapActions } from 'vuex'
+
 export default {
     props: {
         fen: {
             type: String,
             default: '',
+        },
+        history: {
+            type: Array,
+            default: [],
         },
         free: {
             type: Boolean,
@@ -26,7 +39,27 @@ export default {
             default: () => 'q',
         },
     },
+    components: {
+        ChessBoardControls
+    },
     methods: {
+        ...mapActions('games', [ 'setHistory' ]),
+        stepBack() {
+            console.log(this.chess.history());
+            this.chess.undo();
+            this.loadPosition();
+        },
+        saveHistory() {
+            let game = this.$store.getters['games/getCurrentGame'];
+            this.setHistory({
+                gameId: game._id,
+                history: this.chess.history(),
+                fen: this.chess.fen()
+            });
+        },
+        swapSide() {
+            this.board.toggleOrientation();
+        },
         paintThreats () {
             let moves = this.chess.moves({ verbose: true })
             let threats = []
