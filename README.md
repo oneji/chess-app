@@ -1,4 +1,4 @@
-<p align="center"><img src="https://tk-chess-app.s3.us-east-2.amazonaws.com/chess-club-logo.svg"></p>
+<p align="center"><img style="width: 100px; height: auto" src="https://tk-chess-app.s3.us-east-2.amazonaws.com/chess-club-logo.svg"></p>
 
 ### Installation
 To run the server side of the project do the following:
