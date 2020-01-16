@@ -1,10 +1,21 @@
 <template>
     <div>
-        <ChessBoardControls 
+        <ChessBoardControls
+            @start="goToStart"
             @undo="stepBack"
             @save="saveHistory"
-            @swap-side="swapSide" />
+            @swap-side="swapSide"
+            @finish="goToFinish"
+            @next="stepForward" />
         <div ref="board" class="cg-board-wrap" v-resize="loadPosition"></div>
+        <!-- Game history -->
+        <!-- <v-chip 
+            outline 
+            color="green"
+            v-for="(historyItem, idx) in history" 
+            :key="idx"
+            @click="goTo(idx, historyItem)"
+        >{{ historyItem }}</v-chip> -->
     </div>
 </template>
 
@@ -44,10 +55,38 @@ export default {
     },
     methods: {
         ...mapActions('games', [ 'setHistory' ]),
+        goTo(idx, historyItem) {
+            this.chess.reset();
+            for(let i = 0; i <= idx; i++) {
+                let item = this.history[i];
+
+                this.chess.move(item);
+                this.board.set({
+                    fen: this.chess.fen()
+                });
+            }
+        },
+        goToStart() {
+            this.chess.reset();
+            this.board.set({
+                fen: this.chess.fen(),
+            });
+            console.log(this.board.state.turnColor);
+        },
+        goToFinish() {
+            this.chess.load(this.fen);
+            this.board.set({
+                fen: this.chess.fen()
+            });
+        },
         stepBack() {
-            console.log(this.chess.history());
             this.chess.undo();
-            this.loadPosition();
+            this.board.set({
+                fen: this.chess.fen()
+            });
+        },
+        stepForward() {
+            console.log('...')
         },
         saveHistory() {
             let game = this.$store.getters['games/getCurrentGame'];
@@ -112,6 +151,10 @@ export default {
                     free: this.free,
                     color: this.toColor(),
                     dests: this.possibleMoves(),
+                },
+                animation: {
+                    enabled: true,        // enable piece animations, moving and fading
+                    duration: 200,        // animation duration in milliseconds
                 },
             })
 
@@ -188,6 +231,12 @@ export default {
             threats[`turn`] = color
             
             return threats
+        }
+    },
+    data() {
+        return {
+            stepBackFen: null,
+            stepForwardFen: null
         }
     },
     mounted() {

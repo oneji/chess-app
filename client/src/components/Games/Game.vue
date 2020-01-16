@@ -21,15 +21,7 @@
                 @winner="setWinner" />
         </v-flex>
         <!-- <v-flex xs12 sm5 md5 lg5>
-            <v-card>
-                <v-card-title>
-                    <v-btn-toggle mandatory>
-                        <v-btn flat v-for="(historyItem, idx) in item.history" :key="idx">
-                            <span>{{ historyItem }}</span>
-                        </v-btn>
-                    </v-btn-toggle>
-                </v-card-title>
-            </v-card>
+            <GameHistory :items="item.history" />
         </v-flex> -->
     </v-layout>
 </template>
@@ -37,6 +29,7 @@
 <script>
 import GamePlayer from './GamePlayer'
 import GamePlayersDivider from './GamePlayersDivider'
+import GameHistory from './GameHistory'
 import { mapActions } from 'vuex';
 
 export default {
@@ -50,7 +43,8 @@ export default {
     },
     components: {
         GamePlayer,
-        GamePlayersDivider
+        GamePlayersDivider,
+        GameHistory
     },
     methods: {
         ...mapActions('games', [
@@ -61,7 +55,7 @@ export default {
         },
         setWinner(playerId) {
             this.$store.dispatch('games/setWinner', { gameId: this.item._id, playerId });
-        }
+        },
     }
 }
 </script>

@@ -1,16 +1,16 @@
 <template>
     <v-btn-toggle class="chess-board-controls">
+        <v-btn flat @click="$emit('start')">
+            <v-icon>fast_rewind</v-icon>
+        </v-btn>
         <v-btn flat @click="$emit('undo')">
             <v-icon>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn flat @click="$emit('auto-play')">
-            <v-icon>play_arrow</v-icon>
-        </v-btn>
-        <v-btn flat @click="$emit('pause')">
-            <v-icon>pause</v-icon>
-        </v-btn>
         <v-btn flat @click="$emit('next')">
             <v-icon>keyboard_arrow_right</v-icon>
+        </v-btn>
+        <v-btn flat @click="$emit('finish')">
+            <v-icon>fast_forward</v-icon>
         </v-btn>
         <v-btn flat @click="$emit('swap-side')">
             <v-icon>cached</v-icon>

@@ -243,9 +243,6 @@ function start(req, res) {
             });
 
             competition.started = true;
-            for(let i = 0; i < games.length; i++) {
-                competition.games.push(games[i]._id);
-            }
 
             competition.save(err => {
                 if(err) return console.log(err);
@@ -255,7 +252,8 @@ function start(req, res) {
                     message: 'Competition has been successfully started.',
                     shuffledPlayers,
                     competition,
-                    games
+                    games,
+                    players: competition.players
                 });
             });
         });
@@ -267,21 +265,25 @@ function shufflePlayers(players) {
     let playersCount = players.length;
 
     if(playersCount % 2 === 0) {
-        
-        for(let i = 0; i < playersCount/2; i++) {
-            randomNumber = Math.floor(Math.random() * Math.floor(playersCount));
-            whites.push(players[randomNumber]);
+
+        var currentIndex = players.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = players[currentIndex];
+            players[currentIndex] = players[randomIndex];
+            players[randomIndex] = temporaryValue;
         }
 
-        for(let i = 0; i < playersCount; i++) {
-            let inWhites = false;
-            for(let j = 0; j < whites.length; j++) {
-                if(players[i].toString() === whites[j].toString()) {
-                    inWhites = true;
-                }
-            }
-
-            if(!inWhites) {
+        for(let i = 0; i < playersCount; i ++) {
+            if(i % 2 === 1) {
+                whites.push(players[i]);
+            } else {
                 blacks.push(players[i]);
             }
         }
