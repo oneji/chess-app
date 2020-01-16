@@ -69,6 +69,7 @@ export default {
     },
 
     async getCompetitionBySlug({ state, commit }, competitionSlug) {
+        commit('setContentLoading', true, { root: true });
         let { data } = await api.getCompetitionBySlug(competitionSlug);
 
         if(!data.ok) console.log('...')

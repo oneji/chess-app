@@ -15,7 +15,15 @@
             </v-card>
         </v-flex>
         <v-flex xs12 sm12 md8 lg8>
-            <Game :item="game" />
+            <v-layout row wrap>
+                <v-flex d-flex xs12>
+                    <Game :item="game" />            
+                </v-flex>
+                <v-flex d-flex xs12 sm12 md5 lg5>
+                    <GameHistory 
+                        :items="game.history" />
+                </v-flex>
+            </v-layout>
         </v-flex>
     </v-layout>
 </template>
@@ -25,12 +33,14 @@ import { mapActions } from 'vuex';
 import ChessBoard from '@/components/Chess/ChessBoard'
 import ChessBoardControls from '@/components/Chess/ChessBoardControls'
 import Game from '@/components/Games/Game'
+import GameHistory from '@/components/Games/GameHistory'
 
 export default {
     components: {
-        Game,
-        ChessBoard,
         ChessBoardControls,
+        ChessBoard,
+        Game,
+        GameHistory
     },
     computed: {
         game() {
@@ -38,9 +48,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions('games', [
-            'getById'
-        ]),
+        ...mapActions('games', [ 'getById' ]),
     },
     created() {
         this.getById(this.$route.params.id);

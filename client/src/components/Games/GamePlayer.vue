@@ -5,18 +5,25 @@
             <div class="loser-player" v-if="gameLoser"></div>
         </transition>
         <template>
-            <v-subheader class="game-player-subheader">{{ playerType }}</v-subheader>
+            <v-subheader class="game-player-subheader">
+                {{ playerType }}
+                <span class="game-player-time" v-if="game[playerType.toLowerCase() + 'Time'] !== null">Time: {{ game[playerType.toLowerCase() + 'Time'] }}</span>
+            </v-subheader>
             <v-divider :inset="false"></v-divider>
             <v-list-tile :key="item._id" avatar>
                 <v-list-tile-avatar>
-                    <img :src="baseURL + '/' + item.playerPhoto">
+                    <img :src="item.playerPhoto === null 
+                                ? 'images/default_user.png' 
+                                : baseURL + '/' + item.playerPhoto"
+                    >
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <v-list-tile-title v-html="item.playerName"></v-list-tile-title>
                     <v-list-tile-sub-title v-html="item.playerCountry"></v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action v-if="game.started && !gameLoser">
-                    <v-tooltip top>
+                <v-list-tile-action>
+                    <AppBadge v-if="game.winner && !gameLoser" text="Winner" color="success" />
+                    <v-tooltip top v-if="game.started && !gameLoser && !game.winner">
                         <v-btn icon ripple slot="activator" @click="$emit('winner', item._id)">
                             <v-icon color="green">check</v-icon>
                         </v-btn>                        
@@ -30,11 +37,16 @@
 </template>
 
 <script>
+import AppBadge from '../AppBadge'
+
 export default {
     props: {
         item: Object,
         playerType: String,
         game: Object
+    },
+    components: {
+        AppBadge
     },
     computed: {
         baseURL() {
@@ -56,6 +68,11 @@ export default {
 <style lang="scss" scoped>
     .game-player-subheader {
         height: 30px;
+        justify-content: space-between;
+
+        .game-player-time {
+            float: right;
+        }
     }
 
     .loser-player {

@@ -1,15 +1,11 @@
 <template>
-    <v-layout row wrap>
-        <v-flex xs12 sm12 md12 lg12>
-            <div class="loading-block">
-                <v-progress-circular
-                    :size="60"
-                    color="primary"
-                    indeterminate
-                ></v-progress-circular>
-            </div>
-        </v-flex>
-    </v-layout>
+    <div class="loading-block">
+        <v-progress-circular
+            :size="60"
+            color="primary"
+            indeterminate
+        ></v-progress-circular>
+    </div>
 </template>
 
 <script>

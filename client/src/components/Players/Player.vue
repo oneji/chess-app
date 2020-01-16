@@ -1,7 +1,7 @@
 <template>
      <v-card>
         <v-img
-          :src="baseURL + '/' + item.playerPhoto"
+          :src="item.playerPhoto !== null ? baseURL + '/' + item.playerPhoto : '/images/no-photo.png'"
           height="200px"
           class="player-photo"
         >

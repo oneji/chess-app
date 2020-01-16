@@ -56,7 +56,8 @@ export default {
 
         if(!data) console.log('games error');
         else {
-            console.log(data);
+            commit(mutationTypes.SET_FINISH_GAME, data.game);
+            commit(mutationTypes.SHOW_FINISH_GAME_FORM, false);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,
@@ -67,7 +68,10 @@ export default {
 
     showFinishGameForm({ state, commit }, { status, game }) {
         commit(mutationTypes.SHOW_FINISH_GAME_FORM, status);
-        commit(mutationTypes.SET_CURRENT_GAME, game);
+
+        if(status) {
+            commit(mutationTypes.SET_CURRENT_GAME, game);
+        }
     },
 
     async setHistory({ state, commit }, { gameId, history, fen }) {
@@ -83,5 +87,9 @@ export default {
                 text: data.message
             }, { root: true });
         }
+    },
+
+    setBoardGoToIdx({ state, commit }, idx) {
+        commit(mutationTypes.SET_BOARD_GO_TO_IDX, idx);
     }
 }

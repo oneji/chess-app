@@ -9,5 +9,9 @@ export default {
 
     getFinishGameForm(state) {
         return state.finishGameForm;
+    },
+
+    getBoardGoToIdx(state) {
+        return state.boardGoToIdx;
     }
 }

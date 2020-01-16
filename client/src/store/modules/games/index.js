@@ -7,7 +7,8 @@ const gamesModule = {
     state: {
         games: [],
         currentGame: {},
-        finishGameForm: false
+        finishGameForm: false,
+        boardGoToIdx: null
     },
     getters,
     mutations,

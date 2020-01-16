@@ -7,7 +7,9 @@ const competitionsModule = {
     state: {
         competitions: [],
         createCompetition: false,
-        currentCompetition: {}
+        currentCompetition: {
+            players: []
+        }
     },
     getters,
     mutations,

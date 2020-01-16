@@ -22,7 +22,6 @@
         </v-content>
         <!-- Footer -->
         <v-footer app fixed class="pa-3">
-            <v-spacer></v-spacer>
             <div>Chess Club &copy; {{ new Date().getFullYear() }}</div>
         </v-footer>
     </div>

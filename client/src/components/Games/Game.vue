@@ -20,9 +20,6 @@
                 playerType="Blacks"
                 @winner="setWinner" />
         </v-flex>
-        <!-- <v-flex xs12 sm5 md5 lg5>
-            <GameHistory :items="item.history" />
-        </v-flex> -->
     </v-layout>
 </template>
 
@@ -47,9 +44,7 @@ export default {
         GameHistory
     },
     methods: {
-        ...mapActions('games', [
-            'startGame'
-        ]),
+        ...mapActions('games', [ 'startGame' ]),
         start(gameID) {
             this.startGame(gameID);
         },

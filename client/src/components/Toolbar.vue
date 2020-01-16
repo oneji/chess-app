@@ -1,7 +1,7 @@
 <template>
     <v-toolbar app fixed clipped-left>
         <v-btn :to="{ name: 'HomePage' }" fab small flat color="white">
-            <v-icon>home</v-icon>
+            <img style="width: 100%;" src="/images/chess-club-logo.svg" alt="John">
         </v-btn>
         <v-btn :to="{ name: 'Competitions' }">Competitions</v-btn>
         <v-btn :to="{ name: 'Players' }">Players</v-btn>

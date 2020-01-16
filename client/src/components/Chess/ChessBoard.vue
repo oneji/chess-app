@@ -8,14 +8,6 @@
             @finish="goToFinish"
             @next="stepForward" />
         <div ref="board" class="cg-board-wrap" v-resize="loadPosition"></div>
-        <!-- Game history -->
-        <!-- <v-chip 
-            outline 
-            color="green"
-            v-for="(historyItem, idx) in history" 
-            :key="idx"
-            @click="goTo(idx, historyItem)"
-        >{{ historyItem }}</v-chip> -->
     </div>
 </template>
 
@@ -25,6 +17,7 @@ import { Chessground } from 'chessground'
 import { uniques } from './Util.js'
 
 import ChessBoardControls from './ChessBoardControls'
+import GameHistory from '../Games/GameHistory'
 import { mapActions } from 'vuex'
 
 export default {
@@ -51,11 +44,16 @@ export default {
         },
     },
     components: {
-        ChessBoardControls
+        ChessBoardControls,
+        GameHistory
     },
-    methods: {
-        ...mapActions('games', [ 'setHistory' ]),
-        goTo(idx, historyItem) {
+    computed: {
+        goToIdx() {
+            return this.$store.getters['games/getBoardGoToIdx'];
+        }
+    },
+    watch: {
+        goToIdx(idx) {
             this.chess.reset();
             for(let i = 0; i <= idx; i++) {
                 let item = this.history[i];
@@ -65,7 +63,10 @@ export default {
                     fen: this.chess.fen()
                 });
             }
-        },
+        }
+    },
+    methods: {
+        ...mapActions('games', [ 'setHistory' ]),
         goToStart() {
             this.chess.reset();
             this.board.set({
@@ -236,7 +237,7 @@ export default {
     data() {
         return {
             stepBackFen: null,
-            stepForwardFen: null
+            stepForwardFen: null,
         }
     },
     mounted() {

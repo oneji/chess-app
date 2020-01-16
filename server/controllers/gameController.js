@@ -175,7 +175,8 @@ function finish(req, res) {
 
                 return res.json({
                     ok: true,
-                    message: 'The game has been successfully finished.'
+                    message: 'The game has been successfully finished.',
+                    game
                 });
             });
         });
