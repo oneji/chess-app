@@ -18,8 +18,12 @@ export default {
             if(lastPage !== null) {
                 router.push({ path: lastPage });
             } else {
-                router.push({ name: 'Home' });
+                router.push({ name: 'HomePage' });
             }
         }
+    },
+
+    logout({ state, commit }) {
+        commit(mutationTypes.LOGOUT);
     }
 }

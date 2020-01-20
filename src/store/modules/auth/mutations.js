@@ -24,5 +24,13 @@ export default {
         state.error = true,
         state.errorMessage = message;
         state.loading = false;
+    },
+
+    [mutationTypes.LOGOUT] (state) {
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+        localStorage.removeItem('token');
+        delete axios.defaults.headers.common["Authorization"];
     }
 }

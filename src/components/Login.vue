@@ -2,13 +2,13 @@
     <div class="login-page-container"> 
         <v-flex xs11 sm6 md4 lg3 dark> 
             <v-card class="elevation-2 px-4 py-5">                    
-                <!-- <v-card-media>
+                <v-responsive>
                     <v-layout row justify-center>
                         <v-flex>
                             <div class="user-avatar"></div>
                         </v-flex>
                     </v-layout>
-                </v-card-media>  -->
+                </v-responsive> 
                                     
                 <v-card-text>
                     <v-alert
@@ -77,6 +77,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        background-image: url('../../public/images/chess-bg.jpg');
+        background-size: cover;
+        background-position: center center;
     }
     .user-avatar {
         width: 70px;
@@ -84,10 +87,11 @@ export default {
         display: block;
         text-align: center;
         border-radius: 100%;
-        /* background-image: url('../assets/images/user.png'); */
+        background-image: url('../../public/images/default_user.png');
         background-repeat: no-repeat;
         background-color: rgba(0, 0, 0, .085);
-        background-position: 50% 1px;
+        background-position: center;
+        background-size: cover;
         margin: 0 auto;
     }
 </style>

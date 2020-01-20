@@ -13,13 +13,9 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !isAuthenticated) {
         store.commit('setLastVisitedPage', from.path);
         next('/login')
-    } else {
-        next()
-    }
+    } else next();
 
-    if(isAuthenticated && to.name === 'Login') {
-        next(from.path);
-    }
-})
+    if(isAuthenticated && to.name === 'Login') next(from.path);
+});
 
 export default router

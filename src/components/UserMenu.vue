@@ -12,8 +12,8 @@
                         </v-btn>
                     </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-title>Привет</v-list-tile-title>
-                        <v-list-tile-sub-title>Юзер</v-list-tile-sub-title>
+                        <v-list-tile-title>Hello, {{ user.username }}</v-list-tile-title>
+                        <v-list-tile-sub-title>{{ user.username }}</v-list-tile-sub-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -24,15 +24,15 @@
                         <v-icon white>lock_open</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Изменить пароль</v-list-tile-title>
+                        <v-list-tile-title>Change password</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile @click="">
+                <v-list-tile @click="logout">
                     <v-list-tile-action>
                         <v-icon white>power_settings_new</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Выйти</v-list-tile-title>
+                        <v-list-tile-title>Logout</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -42,7 +42,19 @@
 
 <script>
 export default {
-
+    computed: {
+        user() {
+            return this.$store.getters['auth/getUser'] || {};
+        }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('auth/logout')
+                .then(() => {
+                    this.$router.push({ name: 'Login' });
+                });
+        }
+    },
 }
 </script>
 

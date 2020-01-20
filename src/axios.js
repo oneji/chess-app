@@ -13,6 +13,7 @@ if (token !== undefined) {
 
 // Response interceptor
 instance.interceptors.response.use(function(response) {
+    console.log(response);
     return response;
 }, function(error) {
     if(error.response.status === 500) {
