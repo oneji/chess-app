@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="scss" scoped>
     .breadcrumbs-list {
         display: flex;
         width: 100%;

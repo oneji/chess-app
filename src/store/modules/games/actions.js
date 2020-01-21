@@ -57,6 +57,11 @@ export default {
         if(!data) console.log('games error');
         else {
             commit(mutationTypes.SET_FINISH_GAME, data.game);
+            commit(mutationTypes.SET_WINNER, {
+                gameId: data.game._id.toString(),
+                winner: data.game.winner
+            });
+
             commit(mutationTypes.SHOW_FINISH_GAME_FORM, false);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',

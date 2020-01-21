@@ -3,24 +3,41 @@
         <v-select
             v-model="playersToParticipate"
             :items="playersList"
+            item-text="value"
+            item-value="value"
             label="Choose players"
             multiple
             box
             hide-details 
             class="mb-3"
         >
-            <template v-slot:prepend-item>
-                <v-list-tile
-                    ripple
+            <template slot="selection" slot-scope="data">
+                <v-chip
+                    :selected="data.selected"
+                    :key="JSON.stringify(data.item.value)"
+                    close
+                    class="chip--select-multi"
+                    @input="data.parent.selectItem(data.item.value)"
                 >
-                    <v-list-tile-action>
-                        <v-icon :color="playersToParticipate.length > 0 ? 'indigo darken-4' : ''">{{ icon }}</v-icon>
-                    </v-list-tile-action>
+                <v-avatar>
+                    <img :src="data.item.photo !== null ? baseURL + '/' +  data.item.photo : 'images/default_user.png'">
+                </v-avatar>
+                    {{ data.item.text }}
+                </v-chip>
+            </template>
+            <template slot="item" slot-scope="data">
+                <template v-if="typeof data.item !== 'object'">
+                    <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                </template>
+                <template v-else>
+                    <v-list-tile-avatar>
+                        <img :src="data.item.photo !== null ? baseURL + '/' + data.item.photo : 'images/default_user.png'">
+                    </v-list-tile-avatar>
                     <v-list-tile-content>
-                        <v-list-tile-title>Select All</v-list-tile-title>
+                        <v-list-tile-title v-html="data.item.text"></v-list-tile-title>
+                        <v-list-tile-sub-title v-html="data.item.country"></v-list-tile-sub-title>
                     </v-list-tile-content>
-                </v-list-tile>
-                <v-divider class="mt-2"></v-divider>
+                </template>
             </template>
         </v-select>
         <v-btn 
@@ -28,8 +45,7 @@
             block 
             outline 
             class="mb-3"
-            @click="addPlayerToParticipants"
-        >   
+            @click="addPlayerToParticipants">   
             Add
         </v-btn>
     </div>
@@ -51,11 +67,17 @@ export default {
             for(let i = 0; i < players.length; i++) {
                 parsedPlayers.push({
                     text: players[i].playerName,
-                    value: players[i]._id
+                    value: players[i]._id,
+                    photo: players[i].playerPhoto,
+                    country: players[i].playerCountry
                 });
             }
 
             return parsedPlayers;
+        },
+
+        baseURL() {
+            return process.env.VUE_APP_API_URL;
         },
 
         icon () {
@@ -64,7 +86,7 @@ export default {
     },
     data() {
         return {
-            playersToParticipate: []
+            playersToParticipate: [],
         }
     },
     methods: {

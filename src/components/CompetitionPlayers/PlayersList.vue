@@ -18,8 +18,8 @@
                 <transition-group name="scale-transition" mode="out-in" tag="div" class="v-list participants-list v-list--subheader v-list--two-line">
                     <v-subheader :key="123">List of participants</v-subheader>
                     <v-list-tile
-                        v-for="(item, idx) in items"
-                        :key="idx"
+                        v-for="item in items"
+                        :key="item._id"
                         avatar
                         @click="() => {}"
                     >

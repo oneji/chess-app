@@ -18,10 +18,11 @@ export default {
     },
 
     finishGame(options) {
-        let { gameId, time } = options;
+        let { gameId, time, winner } = options;
         return axios.put(`/games/finish/${gameId}`, {
             whitesTime: time.whites,
-            blacksTime: time.blacks
+            blacksTime: time.blacks,
+            winner: winner
         });
     },
 

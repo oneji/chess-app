@@ -15,13 +15,13 @@
         </div>
         <div class="game-players-divider-text" v-if="game.started">
             <v-tooltip bottom>
-                <v-btn icon ripple slot="activator" @click="watchGame(game._id)">
+                <v-btn small icon ripple slot="activator" @click="watchGame(game._id)">
                     <v-icon color="grey">remove_red_eye</v-icon>
                 </v-btn>                        
                 <span>Watch</span>
             </v-tooltip>
             <v-tooltip bottom v-if="!game.ended">
-                <v-btn icon ripple slot="activator" @click="showFinishGameForm({ status: true, game })">
+                <v-btn small icon ripple slot="activator" @click="showFinishGameForm({ status: true, game })">
                     <v-icon color="red">stop</v-icon>
                 </v-btn>                        
                 <span>Finish</span>

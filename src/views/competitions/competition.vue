@@ -1,36 +1,51 @@
 <template>
     <v-layout row wrap v-if="!$store.getters.getContentLoading">
-        <v-flex xs12 sm12 md3 lg3>
+        <v-flex xs12 sm12 md3 lg3 v-if="!competition.started">
             <PlayersList :items="competition.players" />
         </v-flex>
 
         <v-flex xs12 sm12 md9 lg9>
-            <transition name="slide-x-transition" mode="out-in">
-                <v-btn color="success" @click="start" v-if="!competition.started">Start competition</v-btn>
-                <v-btn color="success" block v-else class="mb-3">Upcoming games</v-btn>
-            </transition>
+            <v-responsive color="grey lighten-2" v-if="!competition.started">
+                <v-container fill-height>
+                    <v-layout justify center align-center>
+                        <v-flex class="text-md-center">
+                            <img 
+                                style="width: 180px; display: block; margin: 0 auto;" 
+                                :src="competition.competitionLogo !== null ? API_URL + '/' + competition.competitionLogo : '/images/chess-club-logo.svg'" alt="">
+                            <v-divider class="my-3"></v-divider>
+                            <h3 class="display-1">Add players and start competition!</h3>
+                            <v-divider class="my-3"></v-divider>
+                            <v-btn color="success" @click="start" v-if="!competition.started">Start competition</v-btn>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-responsive>
+        </v-flex>
 
+        <v-flex xs12 sm12 md12 lg12 v-if="competition.started">
+            <v-layout row wrap>
+                <v-flex>
+                    <v-btn color="error" block class="mb-3" >Finish competition</v-btn>
+                </v-flex>
+                <v-flex>
+                    <v-btn color="success" block class="mb-3" >Qualification games</v-btn>
+                </v-flex>
+                <v-flex>
+                    <v-btn color="primary" block class="mb-3" >Go to the next stage</v-btn>
+                </v-flex>
+            </v-layout>
+
+            <PlayersMarquee :items="competition.players" />
+            
             <v-progress-circular v-if="gamesLoading"
                 :size="60"
                 color="primary"
                 indeterminate
             ></v-progress-circular>
+
             <transition name="slide-y-reverse-transition" mode="out-in">
                 <GamesList v-if="!gamesLoading" :games="games" />
             </transition>
-
-            <!-- <v-responsive color="grey lighten-2" v-if="!competition.started">
-                <v-container fill-height>
-                    <v-layout justify center align-center>
-                        <v-flex class="text-md-center">
-                            <img style="width: 220px; display: block; margin: 0 auto;" src="/images/chess-club-logo.svg" alt="">
-                            <v-divider class="my-3"></v-divider>
-                            <h3 class="display-3">Add players and start competition!</h3>
-                            <v-divider class="my-3"></v-divider>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-responsive> -->
         </v-flex>
     </v-layout>
 </template>
@@ -40,13 +55,13 @@ import { mapActions } from 'vuex'
 
 import PlayersList from '@/components/CompetitionPlayers/PlayersList';
 import GamesList from '@/components/Games/GamesList'
-import { ContentLoader } from "vue-content-loader"
+import PlayersMarquee from '@/components/Players/PlayersMarquee'
 
 export default {
     components: {
         PlayersList,
         GamesList,
-        ContentLoader
+        PlayersMarquee
     },
     computed: {
         API_URL() {
