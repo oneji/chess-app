@@ -5,18 +5,18 @@ export default {
         state.games = games;
     },
 
-    [mutationTypes.START_GAME] (state, gameID) {
-        state.games.map(game => {
-            game._id.toString() === gameID.toString() ? game.started = true : null;
+    [mutationTypes.START_GAME] (state, game) {
+        state.games[game.gameType].items.map(g => {
+            g._id.toString() === game._id.toString() ? g.started = true : null;
         });
     },
 
     [mutationTypes.SET_WINNER] (state, params) {
-        let { gameId, winner } = params;
+        let { game, winner } = params;
 
-        state.games.map(game => {
-            if(game._id.toString() === gameId.toString()) {
-                game.winner = winner;
+        state.games[game.gameType].items.map(g => {
+            if(g._id.toString() === game._id.toString()) {
+                g.winner = winner;
             }
         });
 
@@ -35,7 +35,7 @@ export default {
 
     [mutationTypes.SET_FINISH_GAME] (state, game) {
         if(state.currentGame === {}) {
-            state.games = state.games.map(item => {
+            state.games = state.games[game.gameType].items.map(item => {
                 if(item._id.toString() === game._id.toString()) {
                     item.ended = game.ended;
                     item.whitesTime = game.whitesTime;
@@ -59,5 +59,9 @@ export default {
 
     [mutationTypes.SET_BOARD_GO_TO_IDX] (state, idx) {
         state.boardGoToIdx = idx;
+    },
+
+    [mutationTypes.SET_NEXT_ROUND_GAMES] (state, newGames) {
+        state.games.push(newGames);
     }
 }

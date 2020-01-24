@@ -1,12 +1,22 @@
 <template>
     <div>
-        <v-divider></v-divider>
-        <Game 
-            :item="game" 
-            :gameNumber="idx + 1"
-            class="my-1"
-            v-for="(game, idx) in games" :key="game._id" />
-        <v-divider></v-divider>
+        
+        <div v-for="(item, idx) in games" :key="idx">
+            <v-btn
+                block
+                color="success"
+                small
+                v-if="item.items.length > 0"
+            >
+                {{ item.text }}
+            </v-btn>
+            <v-divider></v-divider>
+            <Game 
+                v-for="(game, index) in item.items" :key="game._id" 
+                :item="game" 
+                :gameNumber="index + 1"
+                class="my-1" />
+        </div>
     </div>
 </template>
 
@@ -16,11 +26,14 @@ import Game from './Game'
 export default {
     props: {
         games: {
-            type: Array
+            type: Object
         }
     },
     components: {
         Game
+    },
+    created() {
+        console.log(this.games)
     }
 }
 </script>

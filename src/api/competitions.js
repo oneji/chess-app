@@ -32,8 +32,16 @@ export default {
     },
 
     startCompetition(competitionID) {
-        return axios.post(`competitions/start`, {
-            id: competitionID
+        return axios.post(`competitions/start`, { id: competitionID });
+    },
+
+    nextRound(competitionID, gameType) {
+        return axios.post(`competitions/${competitionID}/nextStage`, {
+            gameType: gameType
         });
     },
+
+    finish(competitionID) {
+        return axios.post(`competitions/finish`, { id: competitionID });
+    }
 }

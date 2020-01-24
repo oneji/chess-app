@@ -38,4 +38,15 @@ export default {
     [mutationTypes.SET_COMPETITION_STARTED] (state) {
         state.currentCompetition.started = true;
     },
+
+    [mutationTypes.SET_NEXT_ROUND_MODAL] (state, status) {
+        state.nextRoundModal = status;
+    },
+
+    [mutationTypes.SET_CHAMPION] (state, data) {
+        let { competitionId, champion } = data;
+        
+        state.currentCompetition.finished = true;
+        state.currentCompetition.champion = champion;
+    }
 }

@@ -22,16 +22,20 @@
             </v-responsive>
         </v-flex>
 
-        <v-flex xs12 sm12 md12 lg12 v-if="competition.started">
-            <v-layout row wrap>
+        <v-flex xs12 sm12 md4 lg4 v-if="competition.champion !== null && competition.finished">
+            <CompetitionWinner :winner="competition.champion" />
+        </v-flex>
+
+        <v-flex xs12 sm12 md8 lg8 v-if="competition.started">
+            <v-layout row wrap v-if="!competition.finished">
                 <v-flex>
-                    <v-btn color="error" block class="mb-3" >Finish competition</v-btn>
+                    <v-btn color="error" block class="mb-3" @click="finish(competition._id.toString())">Finish competition</v-btn>
                 </v-flex>
                 <v-flex>
-                    <v-btn color="success" block class="mb-3" >Qualification games</v-btn>
-                </v-flex>
-                <v-flex>
-                    <v-btn color="primary" block class="mb-3" >Go to the next stage</v-btn>
+                    <v-btn color="primary" block class="mb-3" @click="setNextRoundModal(true)">
+                        Go to the next round
+                        <v-icon right dark>send</v-icon>
+                    </v-btn>
                 </v-flex>
             </v-layout>
 
@@ -56,12 +60,14 @@ import { mapActions } from 'vuex'
 import PlayersList from '@/components/CompetitionPlayers/PlayersList';
 import GamesList from '@/components/Games/GamesList'
 import PlayersMarquee from '@/components/Players/PlayersMarquee'
+import CompetitionWinner from '@/components/Competitions/CompetitionWinner'
 
 export default {
     components: {
         PlayersList,
         GamesList,
-        PlayersMarquee
+        PlayersMarquee,
+        CompetitionWinner
     },
     computed: {
         API_URL() {
@@ -83,7 +89,7 @@ export default {
     },
     methods: {
         ...mapActions('competitions', [
-            'startCompetition'
+            'startCompetition', 'setNextRoundModal', 'finish'
         ]),
         start() {
             this.gamesLoading = true;

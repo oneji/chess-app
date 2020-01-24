@@ -9,6 +9,7 @@ export default {
 
         if(!data) console.log('games error');
         else {
+            console.log(data)
             commit(mutationTypes.SET_GAMES, data.games);
         }
     },
@@ -24,12 +25,12 @@ export default {
         }
     },
 
-    async startGame({ state, commit }, gameID) {
-        let { data } = await api.startGame(gameID);
+    async startGame({ state, commit }, game) {
+        let { data } = await api.startGame(game._id);
 
         if(!data.ok) console.log('error')
         else {
-            commit(mutationTypes.START_GAME, gameID);
+            commit(mutationTypes.START_GAME, game);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,
@@ -39,13 +40,13 @@ export default {
     },
 
     async setWinner({ state, commit, rootState }, params) {
-        let { gameId, playerId } = params;
-        let { data } = await api.setWinner(gameId, playerId);
+        let { game, playerId } = params;
+        let { data } = await api.setWinner(game._id, playerId);
 
         if(!data) console.log('games error');
         else {
             commit(mutationTypes.SET_WINNER, {
-                gameId: data.game._id.toString(),
+                game: data.game,
                 winner: data.game.winner
             });
         }
@@ -58,7 +59,7 @@ export default {
         else {
             commit(mutationTypes.SET_FINISH_GAME, data.game);
             commit(mutationTypes.SET_WINNER, {
-                gameId: data.game._id.toString(),
+                game: data.game,
                 winner: data.game.winner
             });
 

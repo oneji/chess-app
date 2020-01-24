@@ -109,5 +109,43 @@ export default {
 
     setCreateCompetition({ state, commit, rootState }, createCompetitionState) {
         commit(mutationTypes.SET_CREATE_COMPETITION, createCompetitionState);
+    },
+
+    setNextRoundModal({ state, commit, rootState }, status) {
+        commit(mutationTypes.SET_NEXT_ROUND_MODAL, status);
+    },
+
+    async nextRoundGames({ state, commit }, options) {
+        let { competitionId, gameType } = options;
+        let { data } = await api.nextRound(competitionId, gameType);
+
+        if(!data) console.log('error');
+        else {
+            console.log(data)
+
+            // commit('games/setNextRoundGames', data.newGames, { root: true });
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
+    },
+
+    async finish({ state, commit }, competitionId) {
+        let { data } = await api.finish(competitionId);
+
+        if(!data) return console.log('error');
+        else {
+            commit(mutationTypes.SET_CHAMPION, {
+                competitionId,
+                champion: data.competitionChampion
+            });
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
     }
 }

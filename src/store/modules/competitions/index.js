@@ -9,7 +9,9 @@ const competitionsModule = {
         createCompetition: false,
         currentCompetition: {
             players: []
-        }
+        },
+        nextRoundModal: false,
+        champion: null
     },
     getters,
     mutations,

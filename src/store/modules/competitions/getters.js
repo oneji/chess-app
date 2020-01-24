@@ -10,4 +10,12 @@ export default {
     getCompetition(state) {
         return state.currentCompetition;
     },
+
+    getNextRoundModal(state) {
+        return state.nextRoundModal;
+    },
+
+    getChampion(state) {
+        return state.champion;
+    }
 }

@@ -11,7 +11,7 @@
             <GamePlayersDivider 
                 :gameNumber="gameNumber" 
                 :game="item"
-                @start="start(item._id)" />
+                @start="startGame(item)" />
         </v-flex>
         <v-flex xs12 sm5 md5 lg5>
             <GamePlayer 
@@ -45,11 +45,8 @@ export default {
     },
     methods: {
         ...mapActions('games', [ 'startGame' ]),
-        start(gameID) {
-            this.startGame(gameID);
-        },
         setWinner(playerId) {
-            this.$store.dispatch('games/setWinner', { gameId: this.item._id, playerId });
+            this.$store.dispatch('games/setWinner', { game: this.item, playerId });
         },
     }
 }

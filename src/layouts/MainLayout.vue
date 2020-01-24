@@ -18,6 +18,7 @@
                 <CreatePlayer
                     v-if="$store.getters['players/createPlayer']" />
                 <FinishGameForm />
+                <NextRoundModal />
             </v-container>
         </v-content>
         <!-- Footer -->
@@ -34,6 +35,7 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import CreateCompetition from '@/components/Competitions/CreateCompetition'
 import CreatePlayer from '@/components/Players/CreatePlayer'
 import FinishGameForm from '@/components/Games/FinishGameForm'
+import NextRoundModal from '@/components/Competitions/NextRoundModal'
 
 export default {
     components: {
@@ -42,7 +44,8 @@ export default {
         Breadcrumbs,
         CreateCompetition,
         CreatePlayer,
-        FinishGameForm
+        FinishGameForm,
+        NextRoundModal
     },
     computed: {
 
