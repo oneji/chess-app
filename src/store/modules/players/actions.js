@@ -18,7 +18,6 @@ export default {
 
         if(!data.ok) console.log(data);
         else {
-            console.log(data);
             commit(mutationTypes.CREATE_PLAYER, data.player);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
@@ -34,5 +33,19 @@ export default {
 
     setCreatePlayer({ state, commit, rootState }, createPlayerState) {
         commit(mutationTypes.SET_CREATE_PLAYER, createPlayerState);
+    },
+
+    async deletePlayer({ state, commit }, playerId) {
+        let { data } = await api.deletePlayer(playerId);
+
+        if(!data) console.log('errorr');
+        else {
+            commit(mutationTypes.DELETE_PLAYER, playerId);
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
     }
 }

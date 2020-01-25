@@ -13,10 +13,8 @@ if (token !== undefined) {
 
 // Response interceptor
 instance.interceptors.response.use(response => {
-    console.log(response);
     return response;
 }, err => {
-    console.log(err)
     if(err.response.status === 500) {
         store.dispatch('snackbar', {
             color: 'error',

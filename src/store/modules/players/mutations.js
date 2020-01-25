@@ -16,4 +16,10 @@ export default {
     [mutationTypes.CREATE_PLAYER] (state, newPlayer) {
         state.players = [...state.players, newPlayer];
     },
+
+    [mutationTypes.DELETE_PLAYER] (state, playerId) {
+        state.players = state.players.filter(player => {
+            return player._id.toString() !== playerId.toString();
+        });
+    }
 }

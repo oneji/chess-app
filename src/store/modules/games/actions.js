@@ -9,7 +9,6 @@ export default {
 
         if(!data) console.log('games error');
         else {
-            console.log(data)
             commit(mutationTypes.SET_GAMES, data.games);
         }
     },

@@ -13,7 +13,7 @@
                         <v-icon>edit</v-icon>
                     </v-btn>
 
-                    <v-btn dark icon>
+                    <v-btn dark icon @click="$emit('delete', item._id)">
                         <v-icon color="red">delete</v-icon>
                     </v-btn>
                 </v-card-title>

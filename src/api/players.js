@@ -7,5 +7,9 @@ export default {
 
     createPlayer(data) {
         return axios.post('/players', data);
+    },
+
+    deletePlayer(playerId) {
+        return axios.post(`/players/delete/${playerId}`);
     }
 }

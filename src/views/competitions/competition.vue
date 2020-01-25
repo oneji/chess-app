@@ -121,8 +121,6 @@ export default {
                     text: 'You can\'t finish the competition without playing the final.'
                 });
             }
-
-            console.log(finalGame)
         },
         nextRoundModal(status) {
             let allGamesFinished = true;

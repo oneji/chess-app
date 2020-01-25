@@ -61,6 +61,7 @@ export default {
         li {
             margin-right: 25px;
             cursor: pointer;
+            transition: .3s all ease;
 
             &:hover {
                 text-decoration: underline;

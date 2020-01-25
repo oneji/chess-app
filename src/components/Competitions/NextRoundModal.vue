@@ -8,6 +8,7 @@
                 <v-layout row wrap justify-space-around>
                     <v-flex xs12 sm12 md12 lg12>
                         <v-alert :value="true" type="info" icon="person" class="py-2">
+                            {{ winnersCount }} players are participating in the next round.
                             {{ nextRound }}
                         </v-alert>
                         <v-divider class="my-3"></v-divider>
@@ -58,16 +59,19 @@ export default {
             // let competitionGameTypes = this.$store.getters['games/getGames'];
 
             // let games = [];
-            // games.push(...competitionGameTypes['qualifications'].items);
-            // games.push(...competitionGameTypes.quarterFinal.items);
-            // games.push(...competitionGameTypes.semiFinal.items);
-            // games.push(...competitionGameTypes.final.items);
+            // let gameTypes = [ 'qualifications', 'quarterFinal', 'semiFinal', 'final' ];
 
-            // let winners = games.filter(game => {
-            //     return game.ended === true;
+            // gameTypes.map(type => {
+            //     games.push(...competitionGameTypes[type].items);
             // });
 
-            // return winners.length;
+            // let winnersCount = 0; 
+            
+            // games.map(game => {
+            //     return game.ended === true ? winnersCount++ : null;
+            // });
+
+            // return winnersCount;
         }
     },
     data() {

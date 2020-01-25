@@ -7,7 +7,9 @@
             v-if="players.length !== 0"
         >
             <v-flex xs12 sm4 md3 lg2 v-for="player in players" :key="player._id">
-                <Player :item="player" />
+                <Player 
+                    :item="player"
+                    @delete="deleteP" />
             </v-flex>
         </v-scale-transition>
         <!-- Show if there's no players created by the user -->
@@ -33,15 +35,19 @@ export default {
             return this.$store.getters['players/getPlayers'];
         }
     },
-    methods: {
-        ...mapActions('players', [
-            'getPlayers',
-            'setCreatePlayer'
-        ])
-    },
     data() {
         return {
             countries: countriesJson
+        }
+    },
+    methods: {
+        ...mapActions('players', [
+            'getPlayers',
+            'setCreatePlayer',
+            'deletePlayer'
+        ]),
+        deleteP(playerId) {
+            this.deletePlayer(playerId);
         }
     },
     created() {

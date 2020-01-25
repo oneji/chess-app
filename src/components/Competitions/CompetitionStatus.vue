@@ -9,22 +9,28 @@
 <script>
 export default {
     props: {
-        status: {
-            type: Boolean,
-            required: true
-        }
-    },
-    data() {
-        return {
-            optionsObj: {
-                color: !this.status ? 'yellow' : 'green',
-                icon: !this.status ? 'fiber_manual_record' : 'check'
-            }
-        }
+        started: Boolean,
+        finished: Boolean
     },
     computed: {
         options() {
-            return this.optionsObj;
+            let color = 'yellow';
+            let icon = 'fiber_manual_record';
+
+            if(this.started) {
+                color = 'green';
+                icon = 'check'
+            }
+
+            if(this.finished) {
+                color = 'red';
+                icon = 'done_all';
+            }
+
+            return { 
+                color, 
+                icon
+            };
         }
     },
 }

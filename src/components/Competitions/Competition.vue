@@ -3,7 +3,9 @@
         <v-card-title primary-title>
             <div class="headline text-truncate">
                 <!-- Competition name and status -->
-                <CompetitionStatus :status="item.started" />
+                <CompetitionStatus 
+                    :started="item.started"
+                    :finished="item.finished" />
                 {{ item.competitionName }}
             </div>
         </v-card-title>

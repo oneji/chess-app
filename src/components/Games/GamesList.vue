@@ -31,9 +31,6 @@ export default {
     },
     components: {
         Game
-    },
-    created() {
-        console.log(this.games)
     }
 }
 </script>

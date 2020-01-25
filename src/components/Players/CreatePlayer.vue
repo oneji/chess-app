@@ -59,8 +59,8 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" flat @click="showForm = false">Close</v-btn>
-                        <v-btn color="blue darken-1" flat type="submit">Save</v-btn>
+                        <v-btn color="primary" flat @click="showForm = false">Close</v-btn>
+                        <v-btn color="success" flat type="submit">Create</v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card>
