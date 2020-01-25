@@ -22,20 +22,20 @@
                     </v-alert>
 
                     <v-form @submit.prevent="login">
-                        <v-text-field v-model="username" name="username" label="Имя пользователя" type="text"
+                        <v-text-field v-model="username" name="username" label="Username" type="text"
                             v-validate="'required'" 
                             :error-messages="errors.collect('username')"
-                            data-vv-name="username" data-vv-as='"Имя пользователя"' required                                    
+                            data-vv-name="username" data-vv-as='"Username"' required                                    
                         ></v-text-field>
-                        <v-text-field v-model="password" name="password" label="Пароль" hint="Минимум 6 символов"
+                        <v-text-field v-model="password" name="password" label="Password" hint="At least 6 symbols"
                             :append-icon="showPassword ? 'visibility' : 'visibility_off'"
                             @click:append="() => (showPassword = !showPassword)"
                             :type="showPassword ? 'password' : 'text'"
                             v-validate="'required|min:6'"
                             :error-messages="errors.collect('password')"
-                            data-vv-name="password" data-vv-as='"Пароль"' required 
+                            data-vv-name="password" data-vv-as='"Password"' required 
                         ></v-text-field>                         
-                        <v-btn :loading="$store.getters['auth/getAuthLoadingState']" color="info" block large type="submit">Войти</v-btn>
+                        <v-btn :loading="$store.getters['auth/getAuthLoadingState']" color="info" block large type="submit">Log in</v-btn>
                     </v-form>
                 </v-card-text> 
             </v-card>

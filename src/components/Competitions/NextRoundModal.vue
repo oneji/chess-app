@@ -92,7 +92,7 @@ export default {
             console.log(competition)
             this.nextRoundGames({ 
                 competitionId: competition._id, 
-                gameType: this.nextRoundType 
+                gameType: this.nextRoundType
             })
             .then(() => {
                 this.$store.dispatch('games/getCompetitionGames', competition._id)

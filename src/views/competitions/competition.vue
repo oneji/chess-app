@@ -4,42 +4,41 @@
             <PlayersList :items="competition.players" />
         </v-flex>
 
-        <v-flex xs12 sm12 md9 lg9>
-            <v-responsive color="grey lighten-2" v-if="!competition.started">
-                <v-container fill-height>
-                    <v-layout justify center align-center>
-                        <v-flex class="text-md-center">
-                            <img 
-                                style="width: 180px; display: block; margin: 0 auto;" 
-                                :src="competition.competitionLogo !== null ? API_URL + '/' + competition.competitionLogo : '/images/chess-club-logo.svg'" alt="">
-                            <v-divider class="my-3"></v-divider>
-                            <h3 class="display-1">Add players and start competition!</h3>
-                            <v-divider class="my-3"></v-divider>
-                            <v-btn color="success" @click="start" v-if="!competition.started">Start competition</v-btn>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-responsive>
+        <v-flex xs12 sm12 md9 lg9 v-if="!competition.started">
+            <div class="start-wrapper">
+                <v-card>
+                    <v-card-title>
+                        <v-container fill-height>
+                            <v-layout justify center align-center>
+                                <v-flex class="text-xs-center">
+                                    <img 
+                                        style="width: 180px; display: block; margin: 0 auto;" 
+                                        :src="competition.competitionLogo !== null ? API_URL + '/' + competition.competitionLogo : '/images/chess-club-logo.svg'" alt="">
+                                    <v-btn color="success" @click="start">Start competition</v-btn>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                    </v-card-title>
+                </v-card>
+            </div>
         </v-flex>
 
-        <v-flex xs12 sm12 md4 lg4 v-if="competition.champion !== null && competition.finished">
-            <CompetitionWinner :winner="competition.champion" />
+        <v-flex xs12 sm12 md4 lg4 v-if="competition.started">
+            <CompetitionWinner :winner="competition.champion" :participants="competition.players" />
         </v-flex>
 
         <v-flex xs12 sm12 md8 lg8 v-if="competition.started">
             <v-layout row wrap v-if="!competition.finished">
                 <v-flex>
-                    <v-btn color="error" block class="mb-3" @click="finish(competition._id.toString())">Finish competition</v-btn>
+                    <v-btn color="error" block class="mb-3" @click="finishCompetition">Finish competition</v-btn>
                 </v-flex>
                 <v-flex>
-                    <v-btn color="primary" block class="mb-3" @click="setNextRoundModal(true)">
+                    <v-btn color="primary" block class="mb-3" @click="nextRoundModal(true)">
                         Go to the next round
                         <v-icon right dark>send</v-icon>
                     </v-btn>
                 </v-flex>
             </v-layout>
-
-            <PlayersMarquee :items="competition.players" />
             
             <v-progress-circular v-if="gamesLoading"
                 :size="60"
@@ -92,14 +91,58 @@ export default {
             'startCompetition', 'setNextRoundModal', 'finish'
         ]),
         start() {
-            this.gamesLoading = true;
-            this.$store.dispatch('competitions/startCompetition', this.competition._id)
-                .then(() => {
-                    this.$store.dispatch('games/getCompetitionGames', this.competition._id)
-                        .then(() => {
-                            this.gamesLoading = false;
-                        });
+            if(this.competition.players.length > 0) {
+                this.gamesLoading = true;
+                this.$store.dispatch('competitions/startCompetition', this.competition._id)
+                    .then(() => {
+                        this.$store.dispatch('games/getCompetitionGames', this.competition._id)
+                            .then(() => {
+                                this.gamesLoading = false;
+                            });
+                    });
+            } else {
+                this.$store.dispatch('snackbar', {
+                    color: 'warning',
+                    active: true,
+                    text: 'Add players before starting the competition.'
                 });
+            }
+            
+        },
+        finishCompetition() {
+            let finalGame = this.games.final.items[0];
+
+            if(finalGame !== undefined && finalGame.ended) {
+                this.finish(this.competition._id.toString());
+            } else {
+                this.$store.dispatch('snackbar', {
+                    color: 'warning',
+                    active: true,
+                    text: 'You can\'t finish the competition without playing the final.'
+                });
+            }
+
+            console.log(finalGame)
+        },
+        nextRoundModal(status) {
+            let allGamesFinished = true;
+            for (let game in this.games) {
+                let items = this.games[game].items.map(game => {
+                    if(!game.ended) {
+                        allGamesFinished = false;
+                    }
+                })
+            }
+
+            if(allGamesFinished) {
+                this.setNextRoundModal(status);
+            } else {
+                this.$store.dispatch('snackbar', {
+                    color: 'warning',
+                    active: true,
+                    text: 'Finish the games before moving to the next stage.'
+                });
+            }
         }
     },
     created() {
@@ -114,6 +157,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+    .start-wrapper {
+        background-image: url('../../../public/images/start.jpg');
+        background-size: cover;
+        background-position: center center;
 
+        div {
+            background-color: transparent !important;
+        }
+    }
 </style>

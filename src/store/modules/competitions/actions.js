@@ -121,9 +121,7 @@ export default {
 
         if(!data) console.log('error');
         else {
-            console.log(data)
-
-            // commit('games/setNextRoundGames', data.newGames, { root: true });
+            commit(mutationTypes.SET_NEXT_ROUND_MODAL, false);
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,
