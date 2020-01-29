@@ -27,7 +27,7 @@
         </v-img>
 
         <v-list two-line>
-            <v-list-tile @click="">
+            <v-list-tile>
                 <v-list-tile-action>
                     <v-icon color="white">phone</v-icon>
                 </v-list-tile-action>
@@ -40,9 +40,9 @@
                 </v-list-tile-content>
             </v-list-tile>
 
-            <v-divider inset></v-divider>
+            <v-divider></v-divider>
 
-            <v-list-tile @click="">
+            <v-list-tile>
                 <v-list-tile-action>
                     <v-icon color="white">mail</v-icon>
                 </v-list-tile-action>
@@ -55,9 +55,9 @@
                 </v-list-tile-content>
             </v-list-tile>
 
-            <v-divider inset></v-divider>
+            <v-divider></v-divider>
 
-            <v-list-tile @click="">
+            <v-list-tile>
                 <v-list-tile-action>
                     <v-icon color="white">language</v-icon>
                 </v-list-tile-action>
@@ -88,6 +88,12 @@ export default {
 </script>
 
 <style scoped>
+    .v-list {
+        padding: 0 !important;
+    }
+    .v-list--two-line .v-list__tile {
+        height: 65px !important;
+    }
     .player-name {
         width: 100%;
         text-align: center;
