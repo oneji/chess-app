@@ -39,12 +39,13 @@
                     </v-btn>
                 </v-flex>
             </v-layout>
-            
-            <v-progress-circular v-if="gamesLoading"
-                :size="60"
-                color="primary"
-                indeterminate
-            ></v-progress-circular>
+            <div class="games-loading-spinner" v-if="gamesLoading">
+                <v-progress-circular
+                    :size="60"
+                    color="primary"
+                    indeterminate                
+                ></v-progress-circular>
+            </div>
 
             <transition name="slide-y-reverse-transition" mode="out-in">
                 <GamesList v-if="!gamesLoading" :games="games" />
@@ -156,6 +157,13 @@ export default {
 </script>
 
 <style lang="scss">
+    .games-loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+    }
+
     .start-wrapper {
         background-image: url('../../../public/images/start.jpg');
         background-size: cover;
