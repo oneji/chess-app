@@ -6,7 +6,7 @@
                     <v-flex xs12 sm12 md12 lg12 class="text-xs-center">
                         <img 
                             class="competition-winner-photo"
-                            :src="winner !== null ? API_URL + '/' + winner.playerPhoto : '/images/default_user.png'" alt="No photo">
+                            :src="winnerPhoto" alt="Photo of the winner">
                         <v-divider class="my-3"></v-divider>
 
                         <h3 class="headline" v-if="winner !== null">
@@ -37,6 +37,16 @@ export default {
         API_URL() {
             return process.env.VUE_APP_API_URL;
         },
+
+        winnerPhoto() {
+            let photo = '/images/default_user.png';
+
+            if(this.winner !== null && this.winner.playerPhoto !== null) {
+                photo = this.API_URL + '/' + this.winner.playerPhoto;
+            }
+
+            return photo;
+        }
     },
     props: {
         winner: Object,
