@@ -31,6 +31,9 @@ export default {
         EmptySet
     },
     computed: {
+        baseURL() {
+            return process.env.VUE_APP_API_URL;
+        },
         players() {
             return this.$store.getters['players/getPlayers'];
         }

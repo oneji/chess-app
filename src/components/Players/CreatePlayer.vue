@@ -2,6 +2,7 @@
     <div>
         <v-fab-transition>
             <v-btn
+                v-show="$store.getters['players/createPlayer']"
                 dark fab fixed bottom right color="blue"
                 @click="showForm = true">
                 <v-icon>add</v-icon>

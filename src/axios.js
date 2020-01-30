@@ -19,8 +19,12 @@ instance.interceptors.response.use(response => {
         store.dispatch('snackbar', {
             color: 'error',
             active: true,
-            text: 'Неизвестная ошибка на сервере.'
+            text: 'An error occured on the server.'
         });
+    }
+
+    if(err.response.status === 400) {
+        store.dispatch('auth/logout');
     }
 });
 

@@ -27,7 +27,7 @@
                         <v-list-tile-title>Change password</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile @click="logout">
+                <v-list-tile @click="$store.dispatch('auth/logout')">
                     <v-list-tile-action>
                         <v-icon white>power_settings_new</v-icon>
                     </v-list-tile-action>
@@ -46,15 +46,7 @@ export default {
         user() {
             return this.$store.getters['auth/getUser'] || {};
         }
-    },
-    methods: {
-        logout() {
-            this.$store.dispatch('auth/logout')
-                .then(() => {
-                    this.$router.push({ name: 'Login' });
-                });
-        }
-    },
+    }
 }
 </script>
 

@@ -14,10 +14,8 @@
                     <router-view />
                 </transition>
                 <!-- Create project modal and fab -->
-                <CreateCompetition 
-                    v-if="$store.getters['competitions/createCompetition']" />
-                <CreatePlayer
-                    v-if="$store.getters['players/createPlayer']" />
+                <CreateCompetition />
+                <CreatePlayer />
                 <FinishGameForm />
                 <NextRoundModal />
             </v-container>
