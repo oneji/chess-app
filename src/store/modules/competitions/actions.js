@@ -96,7 +96,13 @@ export default {
     async startCompetition({ state, commit, dispatch }, competitionId) {
         let { data } = await api.startCompetition(competitionId);
 
-        if(!data.ok) console.log('error')
+        if(!data.ok) {
+            commit(rootMutationTypes.SNACKBAR, {
+                color: 'warning',
+                active: true,
+                text: data.message
+            }, { root: true });
+        }
         else {
             commit(mutationTypes.SET_COMPETITION_STARTED);
             commit(rootMutationTypes.SNACKBAR, {

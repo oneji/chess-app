@@ -27,10 +27,10 @@ export default {
     },
 
     setHistory(gameId, historyObj) {
-        let { history, fen } = historyObj;
+        let { pgn, fen } = historyObj;
 
         return axios.post(`games/saveHistory/${gameId}`, {
-            history, 
+            pgn, 
             fen
         });
     }

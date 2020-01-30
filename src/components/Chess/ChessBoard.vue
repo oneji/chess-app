@@ -42,6 +42,10 @@ export default {
             type: Function,
             default: () => 'q',
         },
+        pgn: {
+            type: String,
+            default: ''
+        }
     },
     components: {
         ChessBoardControls,
@@ -91,9 +95,10 @@ export default {
         },
         saveHistory() {
             let game = this.$store.getters['games/getCurrentGame'];
+            console.log(this.chess.pgn());
             this.setHistory({
                 gameId: game._id,
-                history: this.chess.history(),
+                pgn: this.chess.pgn({ max_width: 5, newline_char: '<br />' }),
                 fen: this.chess.fen()
             });
         },
@@ -145,6 +150,8 @@ export default {
         },
         loadPosition() {
             this.chess.load(this.fen);
+            this.chess.load_pgn(this.pgn, { newline_char: '<br />' });
+            
             this.board = Chessground(this.$refs.board, {
                 fen: this.chess.fen(),
                 turnColor: this.toColor(),

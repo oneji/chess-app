@@ -8,7 +8,8 @@ const gamesModule = {
         games: [],
         currentGame: {},
         finishGameForm: false,
-        boardGoToIdx: null
+        boardGoToIdx: null,
+        gamePlayerStats: {}
     },
     getters,
     mutations,

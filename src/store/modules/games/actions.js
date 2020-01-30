@@ -19,7 +19,8 @@ export default {
 
         if(!data) console.log('games error');
         else {
-            commit(mutationTypes.SET_CURRENT_GAME, data.game);
+            console.log(data);
+            commit(mutationTypes.SET_CURRENT_GAME, { game: data.game, stats: data.stats });
             commit('setContentLoading', false, { root: true });
         }
     },
@@ -75,17 +76,17 @@ export default {
         commit(mutationTypes.SHOW_FINISH_GAME_FORM, status);
 
         if(status) {
-            commit(mutationTypes.SET_CURRENT_GAME, game);
+            commit(mutationTypes.SET_CURRENT_GAME, { game });
         }
     },
 
-    async setHistory({ state, commit }, { gameId, history, fen }) {
-        let { data } = await api.setHistory(gameId, { history, fen });
+    async setHistory({ state, commit }, { gameId, pgn, fen }) {
+        let { data } = await api.setHistory(gameId, { pgn, fen });
 
         if(!data) console.log('game error');
         else {
             console.log(data)
-            commit(mutationTypes.SET_GAME_HISTORY, { history, fen });
+            commit(mutationTypes.SET_GAME_HISTORY, { pgn, fen });
             commit(rootMutationTypes.SNACKBAR, {
                 color: 'success',
                 active: true,

@@ -25,8 +25,9 @@ export default {
         }
     },
 
-    [mutationTypes.SET_CURRENT_GAME] (state, game) {
+    [mutationTypes.SET_CURRENT_GAME] (state, { game, stats = {} }) {
         state.currentGame = game;
+        state.gamePlayerStats = stats;
     },
 
     [mutationTypes.SHOW_FINISH_GAME_FORM] (state, status) {
@@ -52,8 +53,8 @@ export default {
     },
 
     [mutationTypes.SET_GAME_HISTORY] (state, historyObj) {
-        let { history, fen } = historyObj;
-        state.currentGame.history = history;
+        let { pgn, fen } = historyObj;
+        state.currentGame.pgn = pgn;
         state.currentGame.fen = fen;
     },
 

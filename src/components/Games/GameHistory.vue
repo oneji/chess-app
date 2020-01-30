@@ -36,7 +36,7 @@
 <script>
 export default {
     props: {
-        items: Array
+        items: String
     },
     data () {
       return {
@@ -56,19 +56,27 @@ export default {
         }
     },
     created() {
-        for(let i = 0; i < this.items.length; i++) {
-            if(i % 2 === 0) {
-                this.whitesMoves.push({
-                    name: this.items[i],
-                    value: i
-                });
-            } else if(i % 2 === 1) {
-                this.blacksMoves.push({
-                    name: this.items[i],
-                    value: i
-                });
-            }
+        // Split PGN string to an array to display the moves
+        let itemsArray = this.items.split('<br />');
+
+        this.filteredHistory = itemsArray.map(item => {
+            return item.split(' ');
+        });
+
+        for(let i = 0; i < this.filteredHistory.length; i++) {
+            this.whitesMoves.push({
+                name: this.filteredHistory[i][1],
+                value: i
+            });
+
+            this.blacksMoves.push({
+                name: this.filteredHistory[i][2],
+                value: i
+            });
         }
+    },
+    updated() {
+        console.log('updated')
     }
 }
 </script>

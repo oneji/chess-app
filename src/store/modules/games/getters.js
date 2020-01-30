@@ -13,5 +13,9 @@ export default {
 
     getBoardGoToIdx(state) {
         return state.boardGoToIdx;
+    },
+
+    getGamePlayerStats(state) {
+        return state.gamePlayerStats;
     }
 }

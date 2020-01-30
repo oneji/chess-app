@@ -8,20 +8,42 @@
                             <ChessBoard 
                                 :free="true"
                                 :fen="game.fen"
-                                :history="game.history" />
+                                :history="[]"
+                                :pgn="game.pgn" />
                         </v-flex>
                     </v-layout>
                 </v-card-title>
             </v-card>
         </v-flex>
+
         <v-flex xs12 sm12 md8 lg8>
             <v-layout row wrap>
+                <!-- <GameHistory 
+                        :items="game.pgn" /> -->
                 <v-flex d-flex xs12>
                     <Game :item="game" />            
                 </v-flex>
-                <v-flex d-flex xs12 sm12 md5 lg5>
-                    <GameHistory 
-                        :items="game.history" />
+                <v-flex xs12 sm6 md5 lg5>
+                    <v-card>
+                        <v-card-title>
+                            <v-layout row wrap>
+                                <v-flex xs12 sm12 md12 lg12>
+                                    <StatsChart :playerStats="stats.whitePlayerStats" />
+                                </v-flex>
+                            </v-layout>
+                        </v-card-title>
+                    </v-card>
+                </v-flex>
+                <v-flex xs12 sm6 md5 lg5 offset-md2 offset-lg2>
+                    <v-card>
+                        <v-card-title>
+                            <v-layout row wrap>
+                                <v-flex xs12 sm12 md12 lg12>
+                                    <StatsChart :playerStats="stats.blackPlayerStats" />
+                                </v-flex>
+                            </v-layout>
+                        </v-card-title>
+                    </v-card>
                 </v-flex>
             </v-layout>
         </v-flex>
@@ -34,17 +56,24 @@ import ChessBoard from '@/components/Chess/ChessBoard'
 import ChessBoardControls from '@/components/Chess/ChessBoardControls'
 import Game from '@/components/Games/Game'
 import GameHistory from '@/components/Games/GameHistory'
+import StatsCard from '@/components/StatsCard'
+import StatsChart from '@/components/StatsChart'
 
 export default {
     components: {
         ChessBoardControls,
         ChessBoard,
         Game,
-        GameHistory
+        GameHistory,
+        StatsCard,
+        StatsChart
     },
     computed: {
         game() {
             return this.$store.getters['games/getCurrentGame'] || {};
+        },
+        stats() {
+            return this.$store.getters['games/getGamePlayerStats'];
         }
     },
     methods: {
@@ -57,5 +86,5 @@ export default {
 </script>
 
 <style lang="scss">
-    
+
 </style>
