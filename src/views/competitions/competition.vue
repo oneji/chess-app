@@ -1,5 +1,23 @@
 <template>
     <v-layout row wrap v-if="!$store.getters.getContentLoading">
+        <v-fab-transition>
+            <v-btn
+                class="hidden-sm-and-up"
+                dark fab fixed bottom left small color="primary"
+                @click="nextRoundModal(true)">
+                <v-icon>send</v-icon>
+            </v-btn>
+        </v-fab-transition>
+
+        <v-fab-transition>
+            <v-btn
+                class="hidden-sm-and-up"
+                dark fab fixed bottom right small color="red"
+                @click="finishCompetition">
+                <v-icon>stop</v-icon>
+            </v-btn>
+        </v-fab-transition>
+
         <v-flex xs12 sm12 md3 lg3 v-if="!competition.started">
             <PlayersList :items="competition.players" />
         </v-flex>
@@ -28,7 +46,7 @@
         </v-flex>
 
         <v-flex xs12 sm12 md8 lg8 v-if="competition.started">
-            <v-layout row wrap v-if="!competition.finished">
+            <v-layout class="hidden-xs-only" row wrap v-if="!competition.finished">
                 <v-flex>
                     <v-btn color="error" block class="mb-3" @click="finishCompetition">Finish competition</v-btn>
                 </v-flex>

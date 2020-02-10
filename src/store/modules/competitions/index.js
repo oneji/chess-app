@@ -7,6 +7,7 @@ const competitionsModule = {
     state: {
         competitions: [],
         createCompetition: false,
+        finishCompetitionFab: false,
         currentCompetition: {
             players: []
         },

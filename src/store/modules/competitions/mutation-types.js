@@ -1,6 +1,7 @@
 export const SET_COMPETITIONS   = 'setCompetitions'
 export const DELETE_COMPETITION = 'deleteCompetition'
 export const SET_CREATE_COMPETITION = 'setCreateCompetition'
+export const SET_FINISH_COMPETITION_FAB = 'setFinishCompetitionFab'
 export const CREATE_COMPETITION = 'createCompetition'
 export const SET_COMPETITION = 'setCompetition'
 export const SET_COMPETITION_PLAYERS = 'setCompetitionPlayers'

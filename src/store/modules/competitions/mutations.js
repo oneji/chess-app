@@ -17,6 +17,10 @@ export default {
         state.competitions = [...state.competitions, newCompetition];
     },
 
+    [mutationTypes.SET_FINISH_COMPETITION_FAB] (state, finishCompetitionFabState) {
+        state.finishCompetitionFab = finishCompetitionFabState;
+    },
+
     [mutationTypes.SET_COMPETITION] (state, competition) {
         state.currentCompetition = competition;
     },

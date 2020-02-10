@@ -3,6 +3,10 @@ export default {
         return state.competitions;
     },
 
+    finishCompetitionFab(state) {
+        return state.finishCompetitionFab;
+    },
+
     createCompetition(state) {
         return state.createCompetition;
     },

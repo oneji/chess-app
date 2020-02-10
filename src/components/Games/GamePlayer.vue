@@ -7,7 +7,7 @@
         <template>
             <v-subheader class="game-player-subheader">
                 {{ playerType }}
-                <span class="game-player-time" v-if="game[playerType.toLowerCase() + 'Time'] !== null">Time: {{ game[playerType.toLowerCase() + 'Time'] }}</span>
+                <span class="game-player-time hidden-xs-only" v-if="game[playerType.toLowerCase() + 'Time'] !== null">Time: {{ game[playerType.toLowerCase() + 'Time'] }}</span>
             </v-subheader>
             <v-divider :inset="false"></v-divider>
             <v-list-tile :key="item._id" avatar>
@@ -17,11 +17,11 @@
                                 : baseURL + '/' + item.playerPhoto"
                     >
                 </v-list-tile-avatar>
-                <v-list-tile-content>
+                <v-list-tile-content class="hidden-xs-only">
                     <v-list-tile-title v-html="item.playerName"></v-list-tile-title>
                     <v-list-tile-sub-title v-html="item.playerCountry"></v-list-tile-sub-title>
                 </v-list-tile-content>
-                <v-list-tile-action>
+                <v-list-tile-action class="hidden-xs-only">
                     <AppBadge v-if="game.winner && !gameLoser" text="Winner" color="success" />
                     <v-tooltip top v-if="game.started && !gameLoser && !game.winner">
                         <v-btn icon ripple slot="activator" @click="$emit('winner', item._id)">
