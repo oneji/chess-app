@@ -11,7 +11,7 @@
             </v-subheader>
             <v-divider :inset="false"></v-divider>
             <v-list-tile :key="item._id" avatar>
-                <v-list-tile-avatar>
+                <v-list-tile-avatar class="game-player-avatar">
                     <img :src="item.playerPhoto === null 
                                 ? 'images/default_user.png' 
                                 : baseURL + '/' + item.playerPhoto"
@@ -74,6 +74,18 @@ export default {
             float: right;
         }
     }
+
+    @media screen and (max-width: 599px) {
+        .game-player-avatar {
+            margin: 0 auto;
+            
+            .v-avatar {
+                width: 60px !important;
+                height: 60px !important;
+            }
+        }        
+    }
+
 
     .loser-player {
         height: 100%;

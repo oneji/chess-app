@@ -68,4 +68,10 @@ export default {
         border-radius: 100%;
         padding: 7px;
     }
+
+    @media screen and (max-width: 599px) {
+        .competition-winner-photo {
+            width: 130px;
+        }
+    }
 </style>
