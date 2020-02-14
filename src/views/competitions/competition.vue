@@ -1,11 +1,12 @@
 <template>
     <v-layout row wrap v-if="!$store.getters.getContentLoading">
-        <div class="mobile-control-buttons" v-if="!competition.finished">
+        <div class="mobile-control-buttons">
             <v-fab-transition>
                 <v-btn
                     dark fab fixed bottom color="primary"
                     style="right: 80px;"
-                    @click="nextRoundModal(true)">
+                    @click="nextRoundModal(true)"
+                    v-show="!competition.finished">
                     <v-icon>send</v-icon>
                 </v-btn>
             </v-fab-transition>
@@ -13,7 +14,8 @@
             <v-fab-transition>
                 <v-btn
                     dark fab fixed bottom right color="red"
-                    @click="finishCompetition">
+                    @click="finishCompetition"
+                    v-show="!competition.finished">
                     <v-icon>stop</v-icon>
                 </v-btn>
             </v-fab-transition>
@@ -47,17 +49,6 @@
         </v-flex>
 
         <v-flex xs12 sm12 md8 lg8 v-if="competition.started">
-            <!-- <v-layout class="hidden-xs-only" row wrap v-if="!competition.finished">
-                <v-flex>
-                    <v-btn color="error" block class="mb-3" @click="finishCompetition">Finish competition</v-btn>
-                </v-flex>
-                <v-flex>
-                    <v-btn color="primary" block class="mb-3" @click="nextRoundModal(true)">
-                        Go to the next round
-                        <v-icon right dark>send</v-icon>
-                    </v-btn>
-                </v-flex>
-            </v-layout> -->
             <div class="games-loading-spinner" v-if="gamesLoading">
                 <v-progress-circular
                     :size="60"

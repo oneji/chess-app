@@ -7,7 +7,7 @@
         <!-- Main content -->
         <v-content>
             <!-- Breadcrumbs -->
-            <Breadcrumbs />
+            <!-- <Breadcrumbs /> -->
             
             <v-container fluid grid-list-md class="pt-2">
                 <transition name="slide-x-transition" mode="out-in">
